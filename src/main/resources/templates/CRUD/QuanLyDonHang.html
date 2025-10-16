@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{CRUD/shared/layout :: layout(~{::title}, ~{::content})}">
+<head>
+  <title>Quản lý đơn hàng</title>
+</head>
+<body>
+<content>
+  <div class="container mt-4">
+    <h3 class="mb-3">Quản lý đơn hàng</h3>
+
+    <!-- Bảng danh sách -->
+    <table class="table table-bordered table-striped align-middle text-center">
+      <thead class="table-dark">
+      <tr>
+        <th>STT</th>
+        <th>Mã HĐ</th>
+        <th>Ngày lập</th>
+        <th>Mã người dùng</th>
+        <th>Mã nhân viên</th>
+        <th>Mã trạng thái</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td>
+        <td>HD001</td>
+        <td>2025-10-04</td>
+        <td>2</td>
+        <td>1</td>
+        <td>3</td>
+        <td>
+          <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+            Sửa
+          </button>
+          <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            Xóa
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>HD002</td>
+        <td>2025-10-03</td>
+        <td>3</td>
+        <td>1</td>
+        <td>1</td>
+        <td>
+          <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+            Sửa
+          </button>
+          <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            Xóa
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal Sửa -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-dark">
+          <h5 class="modal-title" id="editModalLabel">Sửa thông tin đơn hàng</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Mã hóa đơn</label>
+              <input type="text" class="form-control" value="HD001" readonly>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Ngày lập</label>
+              <input type="datetime-local" class="form-control" value="2025-10-04T10:00">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Mã người dùng</label>
+              <input type="number" class="form-control" value="2">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Mã nhân viên</label>
+              <input type="number" class="form-control" value="1">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Mã trạng thái</label>
+              <select class="form-select">
+                <option value="1">Chờ xác nhận</option>
+                <option value="2">Đang giao</option>
+                <option value="3" selected>Hoàn thành</option>
+                <option value="4">Đã hủy</option>
+              </select>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="button" class="btn btn-warning">Lưu thay đổi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Xóa -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          Bạn chắc chắn muốn xóa đơn hàng này?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="button" class="btn btn-danger">Xóa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</content>
+</body>
+</html>
