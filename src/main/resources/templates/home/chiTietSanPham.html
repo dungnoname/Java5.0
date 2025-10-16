@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/shared/layout :: layout(~{::title}, ~{::section})}">
+<head>
+  <title>Chi tiết sản phẩm</title>
+</head>
+<body>
+<section>
+  <div class="container py-4">
+    <div class="row g-4">
+      <!-- Hình ảnh sản phẩm -->
+      <div class="col-md-6">
+        <div class="card">
+          <img src="https://laptopaz.vn/media/product/16815_dell_vostro_3520_i3__1215u__8gb__512gb__15.6__fhd__dos_black.jpg"
+               class="card-img-top" alt="Dell Vostro 3520">
+          <div class="d-flex justify-content-center flex-wrap p-2">
+            <img src="https://laptopaz.vn/media/product/16815_vostro3520.jpg" class="img-thumbnail m-1" style="width: 90px;" alt="">
+            <img src="https://laptopaz.vn/media/product/16815_dell3520_1.jpg" class="img-thumbnail m-1" style="width: 90px;" alt="">
+            <img src="https://laptopaz.vn/media/product/16815_dell3520_2.jpg" class="img-thumbnail m-1" style="width: 90px;" alt="">
+            <img src="https://laptopaz.vn/media/product/16815_dell3520_3.jpg" class="img-thumbnail m-1" style="width: 90px;" alt="">
+          </div>
+        </div>
+      </div>
+
+      <!-- Thông tin sản phẩm -->
+      <div class="col-md-6">
+        <h4>Dell Vostro 3520 i3-1215U/8GB/512GB SSD/15.6”/FHD/Dos/Black</h4>
+        <div class="mb-2">
+          ⭐⭐⭐☆☆ (3 đánh giá của khách hàng)
+        </div>
+        <h3 class="text-danger">9.190.000 đ
+          <small class="text-muted text-decoration-line-through">10.590.000 đ</small>
+        </h3>
+
+        <ul class="list-unstyled">
+          <li>🎁 Tặng nâng cấp thêm 8GB RAM MIỄN PHÍ</li>
+          <li>🎁 Tặng túi chống sốc trị giá 300.000 VNĐ</li>
+          <li>🛠️ Bảo hành 12 tháng máy Fullbox</li>
+          <li>⚡ Cài đặt miễn phí trọn đời</li>
+          <li>🚚 Miễn phí vận chuyển toàn quốc</li>
+          <li>🔄 Hỗ trợ nâng cấp máy đổi mới nhất</li>
+          <li>💵 Giá đã bao gồm VAT</li>
+        </ul>
+
+        <!-- Nút hành động -->
+        <div class="d-grid gap-2 my-3">
+          <button class="btn btn-warning btn-lg">MUA NGAY</button>
+          <button class="btn btn-primary">MUA TRẢ GÓP</button>
+          <button class="btn btn-outline-primary">TRẢ GÓP QUA THẺ</button>
+        </div>
+
+        <!-- Liên hệ -->
+        <div class="p-3 border rounded bg-white">
+          <h6>Hotline hỗ trợ:</h6>
+          <p>
+            Hà Nội: <strong>0834.82.1988</strong><br>
+            TP HCM: <strong>0911.71.2468</strong><br>
+            Đà Nẵng: <strong>088.602.9669</strong><br>
+            Hải Phòng: <strong>088.629.6336</strong><br>
+            Nghệ An: <strong>088.639.3737</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thông tin mô tả sản phẩm -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc" type="button" role="tab">Mô tả sản phẩm</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab">Đánh giá</button>
+          </li>
+        </ul>
+        <div class="tab-content border p-3 bg-white" id="myTabContent">
+          <div class="tab-pane fade show active" id="desc" role="tabpanel">
+            <p><strong>Dell Vostro 3520</strong> là dòng laptop doanh nhân bền bỉ, thiết kế gọn nhẹ, màn hình 15.6” FHD, vi xử lý Intel i3-1215U thế hệ 12 đáp ứng tốt nhu cầu học tập, văn phòng và giải trí cơ bản.</p>
+            <ul>
+              <li>CPU: Intel Core i3-1215U</li>
+              <li>RAM: 8GB DDR4 (tặng thêm 8GB miễn phí)</li>
+              <li>SSD: 512GB NVMe</li>
+              <li>Màn hình: 15.6” FHD, chống chói</li>
+              <li>Trọng lượng: ~1.7kg</li>
+            </ul>
+          </div>
+          <div class="tab-pane fade" id="review" role="tabpanel">
+            <p>⭐⭐⭐⭐☆ - "Máy chạy mượt, phù hợp cho sinh viên và dân văn phòng."</p>
+            <p>⭐⭐⭐☆☆ - "Thiết kế đẹp nhưng pin chưa được lâu."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

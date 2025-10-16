@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/shared/layout :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>Đăng nhập</title>
+</head>
+
+<body>
+<content>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-sm p-4">
+                    <h4 class="text-center mb-4">Đăng nhập</h4>
+
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Tên đăng nhập</label>
+                            <input type="text" class="form-control" placeholder="Nhập tên đăng nhập">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" placeholder="Nhập mật khẩu">
+                        </div>
+
+                        <div class="text-end mb-3">
+                            <a href="#" class="text-decoration-none small">Quên mật khẩu?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                    </form>
+
+                    <div class="text-center my-3">
+                        <span class="text-muted">hoặc</span>
+                    </div>
+
+                    <button class="btn btn-outline-danger w-100 mb-3">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+                             alt="" width="20" class="me-2">
+                        Đăng nhập bằng Google
+                    </button>
+
+                    <div class="text-center">
+                        <small>Chưa có tài khoản?
+                            <a th:href="@{/java5/dang-ky}">Đăng ký ngay</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br>
+</content>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/shared/layout :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>Trang chủ</title>
+</head>
+<body>
+<content>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <!-- Dấu chấm chỉ số -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                    class="active"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></button>
+        </div>
+
+        <!-- Hình ảnh -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/photos/index/banner1.jpg" class="d-block w-100" alt="Banner 1">
+            </div>
+            <div class="carousel-item">
+                <img src="/photos/index/banner2.jpg" class="d-block w-100" alt="Banner 2">
+            </div>
+            <div class="carousel-item">
+                <img src="/photos/index/banner3.jpg" class="d-block w-100" alt="Banner 3">
+            </div>
+            <div class="carousel-item">
+                <img src="/photos/index/banner4.jpg" class="d-block w-100" alt="Banner 4">
+            </div>
+            <div class="carousel-item">
+                <img src="/photos/index/banner5.jpg" class="d-block w-100" alt="Banner 5">
+            </div>
+        </div>
+
+        <!-- Nút điều hướng -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <div class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold">Sản phẩm mới ra</h5>
+            <a href="#" class="text-decoration-none">Xem thêm &raquo;</a>
+        </div>
+
+        <div class="row g-3">
+            <!-- Sản phẩm 1 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/dellgaming g15 5511 i5.jpg" class="card-img-top" alt="SP1">
+                    <div class="card-body">
+                        <h6 class="card-title">Laptop ABC Core i5 / 8GB / 256GB</h6>
+                        <p class="text-danger fw-bold">11.990.000 đ</p>
+                        <p class="text-muted text-decoration-line-through">13.500.000 đ</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 2 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/dellgaming g15 5511 i5.jpg" class="card-img-top" alt="SP2">
+                    <div class="card-body">
+                        <h6 class="card-title">Laptop XYZ Core i3 / 4GB / 128GB</h6>
+                        <p class="text-danger fw-bold">8.990.000 đ</p>
+                        <p class="text-muted text-decoration-line-through">9.990.000 đ</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 3 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/dellgaming g15 5511 i5.jpg" class="card-img-top" alt="SP3">
+                    <div class="card-body">
+                        <h6 class="card-title">Laptop DEF Core i7 / 16GB / 512GB</h6>
+                        <p class="text-danger fw-bold">19.990.000 đ</p>
+                        <p class="text-muted text-decoration-line-through">21.500.000 đ</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 4 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/dellgaming g15 5511 i5.jpg" class="card-img-top" alt="SP4">
+                    <div class="card-body">
+                        <h6 class="card-title">Laptop GHI Core i5 / 8GB / 256GB</h6>
+                        <p class="text-danger fw-bold">12.490.000 đ</p>
+                        <p class="text-muted text-decoration-line-through">13.900.000 đ</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <!-- Tiêu đề + menu phụ -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold">Laptop Gaming</h5>
+            <div>
+                <a href="#" class="me-3 text-decoration-none">Laptop Dell</a>
+                <a href="#" class="me-3 text-decoration-none">Laptop HP</a>
+                <a href="#" class="me-3 text-decoration-none">Laptop Lenovo</a>
+                <a href="#" class="text-decoration-none">Xem thêm &raquo;</a>
+            </div>
+        </div>
+        <!-- Danh sách sản phẩm -->
+        <div class="row g-3">
+            <!-- Sản phẩm 1 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" class="card-img-top" alt="SP1">
+                    <div class="card-body">
+                        <span class="badge bg-warning text-dark mb-2">Mới</span>
+                        <h6 class="card-title">Laptop Gaming Dell G15 i5 / 8GB / 512GB</h6>
+                        <p class="text-danger fw-bold mb-0">22.990.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">25.500.000 đ</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 2 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" class="card-img-top" alt="SP2">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">Giảm 1.500.000 đ</span>
+                        <h6 class="card-title">Laptop Gaming ASUS ROG i7 / 16GB / 1TB</h6>
+                        <p class="text-danger fw-bold mb-0">32.490.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">33.990.000 đ</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 3 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" class="card-img-top" alt="SP3">
+                    <div class="card-body">
+                        <span class="badge bg-success mb-2">Miễn phí RAM 8GB</span>
+                        <h6 class="card-title">Laptop Gaming MSI Katana i7 / 16GB / 512GB</h6>
+                        <p class="text-danger fw-bold mb-0">27.990.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">29.900.000 đ</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 4 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" class="card-img-top" alt="SP4">
+                    <div class="card-body">
+                        <h6 class="card-title">Laptop Gaming Acer Nitro 5 i5 / 8GB / 512GB</h6>
+                        <p class="text-danger fw-bold mb-0">21.490.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">23.000.000 đ</small>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <!-- Ảnh 1 -->
+        <div class="col-md-6">
+            <img src="https://surfaceviet.vn/wp-content/uploads/2023/03/Banner-web-3.png"
+                 class="img-fluid w-100" alt="Banner 1">
+        </div>
+        <!-- Ảnh 2 -->
+        <div class="col-md-6">
+            <img src="https://surfaceviet.vn/wp-content/uploads/2023/03/Banner-web-3b-600x189.png"
+                 class="img-fluid w-100" alt="Banner 2">
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <!-- Tiêu đề + menu phụ -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold">Máy tính văn phòng</h5>
+            <div>
+                <a href="#" class="me-3 text-decoration-none">Surface Go 2</a>
+                <a href="#" class="me-3 text-decoration-none">Surface Go 3</a>
+                <a href="#" class="text-decoration-none">Xem thêm &raquo;</a>
+            </div>
+        </div>
+
+        <!-- Danh sách sản phẩm -->
+        <div class="row g-3">
+            <!-- Sản phẩm 1 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="SP1">
+                    <div class="card-body">
+                        <span class="badge bg-warning text-dark mb-2">Giao hàng nhanh</span>
+                        <h6 class="card-title">Máy tính VP Core i5 / 8GB / 256GB</h6>
+                        <p class="text-danger fw-bold mb-0">19.390.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">24.900.000 đ</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 2 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="SP2">
+                    <div class="card-body">
+                        <span class="badge bg-secondary mb-2">Trả góp 0%</span>
+                        <h6 class="card-title">Máy tính VP Core i7 / 16GB / 512GB</h6>
+                        <p class="text-danger fw-bold mb-0">31.490.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">34.490.000 đ</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 3 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="SP3">
+                    <div class="card-body">
+                        <span class="badge bg-info text-dark mb-2">Nhiều màu sắc</span>
+                        <h6 class="card-title">Máy tính VP Core i5 / 8GB / 512GB</h6>
+                        <p class="text-danger fw-bold mb-0">26.590.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">31.490.000 đ</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 4 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="SP4">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">Giảm 8.600.000 đ</span>
+                        <h6 class="card-title">Máy tính VP Core i7 / 16GB / 512GB</h6>
+                        <p class="text-danger fw-bold mb-0">28.090.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">36.690.000 đ</small>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <!-- ================= Danh mục Bàn phím ================= -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold">Bàn phím</h5>
+            <div>
+                <a href="#" class="me-3 text-decoration-none">Bàn phím cơ</a>
+                <a href="#" class="me-3 text-decoration-none">Bàn phím văn phòng</a>
+                <a href="#" class="text-decoration-none">Xem thêm &raquo;</a>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-5">
+            <!-- SP1 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Banphim.jpg" class="card-img-top" alt="Bàn phím 1">
+                    <div class="card-body">
+                        <span class="badge bg-success mb-2">Hot</span>
+                        <h6 class="card-title">Bàn phím cơ RGB</h6>
+                        <p class="text-danger fw-bold mb-0">1.290.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">1.590.000 đ</small>
+                    </div>
+                </div>
+            </div>
+            <!-- SP2 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Banphim.jpg" class="card-img-top" alt="Bàn phím 2">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">Giảm giá</span>
+                        <h6 class="card-title">Bàn phím văn phòng</h6>
+                        <p class="text-danger fw-bold mb-0">390.000 đ</p>
+                        <small class="text-muted text-decoration-line-through">490.000 đ</small>
+                    </div>
+                </div>
+            </div>
+            <!-- SP3 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Banphim.jpg" class="card-img-top" alt="Bàn phím 3">
+                    <div class="card-body">
+                        <span class="badge bg-warning text-dark mb-2">Mới</span>
+                        <h6 class="card-title">Bàn phím Bluetooth</h6>
+                        <p class="text-danger fw-bold mb-0">690.000 đ</p>
+                    </div>
+                </div>
+            </div>
+            <!-- SP4 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Banphim.jpg" class="card-img-top" alt="Bàn phím 4">
+                    <div class="card-body">
+                        <span class="badge bg-secondary mb-2">Best Seller</span>
+                        <h6 class="card-title">Bàn phím gaming</h6>
+                        <p class="text-danger fw-bold mb-0">1.090.000 đ</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= Danh mục Chuột ================= -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold">Chuột</h5>
+            <div>
+                <a href="#" class="me-3 text-decoration-none">Chuột không dây</a>
+                <a href="#" class="me-3 text-decoration-none">Chuột gaming</a>
+                <a href="#" class="text-decoration-none">Xem thêm &raquo;</a>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <!-- SP1 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Chot.jpg" class="card-img-top" alt="Chuột 1">
+                    <div class="card-body">
+                        <span class="badge bg-warning text-dark mb-2">Mới</span>
+                        <h6 class="card-title">Chuột không dây Logitech</h6>
+                        <p class="text-danger fw-bold mb-0">490.000 đ</p>
+                    </div>
+                </div>
+            </div>
+            <!-- SP2 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Chot.jpg" class="card-img-top" alt="Chuột 2">
+                    <div class="card-body">
+                        <span class="badge bg-success mb-2">Hot</span>
+                        <h6 class="card-title">Chuột gaming RGB</h6>
+                        <p class="text-danger fw-bold mb-0">890.000 đ</p>
+                    </div>
+                </div>
+            </div>
+            <!-- SP3 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Chot.jpg" class="card-img-top" alt="Chuột 3">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">Sale</span>
+                        <h6 class="card-title">Chuột văn phòng</h6>
+                        <p class="text-danger fw-bold mb-0">190.000 đ</p>
+                    </div>
+                </div>
+            </div>
+            <!-- SP4 -->
+            <div class="col-md-3 col-6">
+                <div class="card h-100">
+                    <img src="/photos/index-content/Chot.jpg" class="card-img-top" alt="Chuột 4">
+                    <div class="card-body">
+                        <span class="badge bg-info text-dark mb-2">Khuyến mãi</span>
+                        <h6 class="card-title">Chuột công thái học</h6>
+                        <p class="text-danger fw-bold mb-0">590.000 đ</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <!-- Ảnh 1 -->
+        <div class="col-md-6">
+            <img src="https://surfaceviet.vn/wp-content/uploads/2023/03/Banner-web-3.png"
+                 class="img-fluid w-100" alt="Banner 1">
+        </div>
+        <!-- Ảnh 2 -->
+        <div class="col-md-6">
+            <img src="https://surfaceviet.vn/wp-content/uploads/2023/03/Banner-web-3b-600x189.png"
+                 class="img-fluid w-100" alt="Banner 2">
+        </div>
+    </div>
+
+
+</content>
+</body>
+</html>

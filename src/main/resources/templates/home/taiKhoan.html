@@ -1,0 +1,86 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/shared/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Quản lý tài khoản</title>
+</head>
+<body>
+<section class="bg-light py-4 container">
+    <h3 class="mb-4">👤 Quản lý tài khoản</h3>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mb-3" id="accountTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="info-tab"
+                    data-bs-toggle="tab" data-bs-target="#info"
+                    type="button">Cập nhật thông tin</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="password-tab"
+                    data-bs-toggle="tab" data-bs-target="#password"
+                    type="button">Đổi mật khẩu</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="accountTabsContent">
+        <!-- Thông tin tài khoản -->
+        <div class="tab-pane fade show active" id="info" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Thông tin cá nhân</h5>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Họ tên</label>
+                                <input type="text" class="form-control" placeholder="Nguyễn Văn A" value="Nguyễn Văn A">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" placeholder="email@example.com" value="vana@gmail.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Số điện thoại</label>
+                                <input type="text" class="form-control" placeholder="0123 456 789" value="0987654321">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Địa chỉ</label>
+                                <input type="text" class="form-control" placeholder="123 Đường ABC, Quận 1, TP.HCM" value="123 Đường ABC, Quận 1, TP.HCM">
+                            </div>
+                        </div>
+                        <div class="mt-4 text-end">
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Đổi mật khẩu -->
+        <div class="tab-pane fade" id="password" role="tabpanel">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Đổi mật khẩu</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Mật khẩu hiện tại</label>
+                            <input type="password" class="form-control" placeholder="Nhập mật khẩu hiện tại">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mật khẩu mới</label>
+                            <input type="password" class="form-control" placeholder="Nhập mật khẩu mới">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nhập lại mật khẩu mới</label>
+                            <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới">
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success">Đổi mật khẩu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br>
+</section>
+</body>
+</html>

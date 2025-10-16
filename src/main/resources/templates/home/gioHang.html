@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/shared/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Giỏ hàng</title>
+</head>
+<body>
+<section>
+    <div class="container py-4">
+        <h3 class="mb-4">🛒 Giỏ hàng</h3>
+        <div class="row">
+            <!-- Bảng giỏ hàng -->
+            <div class="col-lg-8">
+                <div class="table-responsive bg-white shadow-sm rounded">
+                    <table class="table align-middle mb-0 fs-5">
+                        <thead class="table-light">
+                        <tr>
+                            <th style="width:50px;"></th>
+                            <th>Sản phẩm</th>
+                            <th>Giá</th>
+                            <th style="width:150px;">Số lượng</th>
+                            <th>Tạm tính</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Item 1 -->
+                        <tr>
+                            <td><button class="btn btn-outline-danger btn-lg">✖</button></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" width="80" class="me-3">
+                                    <a href="#" class="text-decoration-none">Dell Vostro 3520 i3-1215U/8GB/512GB SSD/15.6"FHD/Dos/Black</a>
+                                </div>
+                            </td>
+                            <td>9.190.000 đ</td>
+                            <td>
+                                <div class="input-group" style="max-width: 150px;">
+                                    <button class="btn btn-outline-secondary btn-lg">-</button>
+                                    <input type="text" class="form-control text-center fs-5" value="1">
+                                    <button class="btn btn-outline-secondary btn-lg">+</button>
+                                </div>
+                            </td>
+                            <td>9.190.000 đ</td>
+                        </tr>
+                        <!-- Item 2 -->
+                        <tr>
+                            <td><button class="btn btn-outline-danger btn-lg">✖</button></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" width="80" class="me-3">
+                                    <a href="#" class="text-decoration-none">HP 15 - FD0095WM, i5 1235U, 8GB, SSD 256GB, 15.6" HD, Win 11</a>
+                                </div>
+                            </td>
+                            <td>11.990.000 đ</td>
+                            <td>
+                                <div class="input-group" style="max-width: 150px;">
+                                    <button class="btn btn-outline-secondary btn-lg">-</button>
+                                    <input type="text" class="form-control text-center fs-5" value="1">
+                                    <button class="btn btn-outline-secondary btn-lg">+</button>
+                                </div>
+                            </td>
+                            <td>11.990.000 đ</td>
+                        </tr>
+                        <!-- Item 3 -->
+                        <tr>
+                            <td><button class="btn btn-outline-danger btn-lg">✖</button></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" width="80" class="me-3">
+                                    <a href="#" class="text-decoration-none">Dell Vostro 3530 i5-1334U/16GB/512GB SSD/15.6"FHD/Dos/Black</a>
+                                </div>
+                            </td>
+                            <td>13.190.000 đ</td>
+                            <td>
+                                <div class="input-group" style="max-width: 150px;">
+                                    <button class="btn btn-outline-secondary btn-lg">-</button>
+                                    <input type="text" class="form-control text-center fs-5" value="1">
+                                    <button class="btn btn-outline-secondary btn-lg">+</button>
+                                </div>
+                            </td>
+                            <td>13.190.000 đ</td>
+                        </tr>
+                        <!-- Item 4 -->
+                        <tr>
+                            <td><button class="btn btn-outline-danger btn-lg">✖</button></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" width="80" class="me-3">
+                                    <a href="#" class="text-decoration-none">Laptop Lenovo V14 G4 IRU i3-1315U/8GB/512GB/14" FHD/Win11</a>
+                                </div>
+                            </td>
+                            <td>14.090.000 đ</td>
+                            <td>
+                                <div class="input-group" style="max-width: 150px;">
+                                    <button class="btn btn-outline-secondary btn-lg">-</button>
+                                    <input type="text" class="form-control text-center fs-5" value="1">
+                                    <button class="btn btn-outline-secondary btn-lg">+</button>
+                                </div>
+                            </td>
+                            <td>14.090.000 đ</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mã giảm giá -->
+                <div class="d-flex justify-content-between mt-3">
+                    <div class="input-group w-50 input-group-lg">
+                        <input type="text" class="form-control" placeholder="Nhập mã giảm giá">
+                        <button class="btn btn-primary btn-lg">Áp dụng</button>
+                    </div>
+                    <button class="btn btn-outline-secondary btn-lg">Cập nhật giỏ hàng</button>
+                </div>
+            </div>
+
+            <!-- Tổng tiền -->
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="card shadow-sm fs-5">
+                    <div class="card-body">
+                        <h5 class="card-title fs-4">Tóm tắt đơn hàng</h5>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Tạm tính</span>
+                                <strong>48.460.000 đ</strong>
+                            </li>
+                            <li class="list-group-item">
+                                <span>Vận chuyển</span>
+                                <p class="mb-0 small text-muted">Miễn phí giao hàng<br>Các tùy chọn vận chuyển sẽ được cập nhật trong quá trình thanh toán.</p>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Tổng</span>
+                                <strong>48.460.000 đ</strong>
+                            </li>
+                        </ul>
+                        <button class="btn btn-warning w-100 btn-lg">Tiến hành thanh toán</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+</section>
+</body>
+</html>

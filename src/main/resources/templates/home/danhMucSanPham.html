@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/shared/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Danh mục sản phẩm</title>
+</head>
+<body>
+<section>
+    <div class="container my-4">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Laptop</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <!-- Cột lọc -->
+            <div class="col-md-3 mb-4">
+                <!-- Danh mục -->
+                <div class="border p-3 mb-3 bg-light">
+                    <h6 class="fw-bold">Danh mục</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="gaming" checked>
+                        <label class="form-check-label" for="gaming">Laptop Gaming</label>
+                    </div>
+                    <div class="ms-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="brandGaming" id="msi">
+                            <label class="form-check-label" for="msi">MSI</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="brandGaming" id="lenovo">
+                            <label class="form-check-label" for="lenovo">Lenovo</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="brandGaming" id="asus">
+                            <label class="form-check-label" for="asus">ASUS</label>
+                        </div>
+                    </div>
+
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="radio" name="category" id="office">
+                        <label class="form-check-label" for="office">Laptop Văn phòng</label>
+                    </div>
+                    <div class="ms-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="brandOffice" id="hp">
+                            <label class="form-check-label" for="hp">HP</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="brandOffice" id="dell">
+                            <label class="form-check-label" for="dell">Dell</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lọc theo giá -->
+                <div class="border p-3 bg-light">
+                    <h6 class="fw-bold">Lọc theo giá</h6>
+                    <div><a href="#" class="text-decoration-none d-block">Dưới 15 triệu</a></div>
+                    <div><a href="#" class="text-decoration-none d-block">Từ 15 - 20 triệu</a></div>
+                    <div><a href="#" class="text-decoration-none d-block">Từ 20 - 25 triệu</a></div>
+                    <div><a href="#" class="text-decoration-none d-block">Từ 25 - 30 triệu</a></div>
+                    <div><a href="#" class="text-decoration-none d-block">Từ 30 - 40 triệu</a></div>
+                    <div><a href="#" class="text-decoration-none d-block">Trên 50 triệu</a></div>
+                </div>
+            </div>
+
+            <!-- Cột sản phẩm -->
+            <div class="col-md-9">
+                <!-- Thanh sắp xếp -->
+                <div class="d-flex justify-content-between align-items-center border p-2 mb-3 bg-light">
+                    <span>Hiển thị tất cả kết quả</span>
+                    <div class="d-flex align-items-center">
+                        <span class="me-2">Sắp xếp theo</span>
+                        <select class="form-select form-select-sm">
+                            <option>Sắp xếp theo giá: thấp đến cao</option>
+                            <option>Sắp xếp theo giá: cao đến thấp</option>
+                            <option>Sản phẩm mới</option>
+                        </select>
+
+                        <form class="d-flex" role="search">
+                            <input class="form-control form-control-sm" type="search" placeholder="Tìm sản phẩm..." aria-label="Search">
+                            <button class="btn btn-sm btn-primary ms-1" type="submit">Tìm</button>
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- Danh sách sản phẩm -->
+                <div class="row g-3">
+                    <div class="col-md-4 col-6">
+                        <div class="card h-100">
+                            <a th:href="@{'/java5/SanPham/detail/' + 1}">
+                                <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="Laptop">
+                            </a>
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Miễn phí nâng thêm 8GB RAM</span>
+                                <a th:href="@{'/java5/SanPham/detail/' + 1}" class="text-decoration-none text-dark">
+                                    Dell Vostro 3520 i3-1215U / 8GB / 512GB
+                                </a>
+                                <p class="text-danger fw-bold mb-0">9.190.000 đ</p>
+                                <small class="text-muted text-decoration-line-through">10.590.000 đ</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <div class="card h-100">
+                            <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="Laptop">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Tặng kèm chuột HP Bluetooth</span>
+                                <h6 class="card-title">HP 15 – FD0095WM, i5 1235U, 8GB</h6>
+                                <p class="text-danger fw-bold mb-0">11.990.000 đ</p>
+                                <small class="text-muted text-decoration-line-through">13.500.000 đ</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <div class="card h-100">
+                            <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="Laptop">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Nhiều màu sắc</span>
+                                <h6 class="card-title">ASUS Gaming i7 / 16GB / SSD 512GB</h6>
+                                <p class="text-danger fw-bold mb-0">21.990.000 đ</p>
+                                <small class="text-muted text-decoration-line-through">25.900.000 đ</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6">
+                        <div class="card h-100">
+                            <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="Laptop">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Nhiều màu sắc</span>
+                                <h6 class="card-title">ASUS Gaming i7 / 16GB / SSD 512GB</h6>
+                                <p class="text-danger fw-bold mb-0">21.990.000 đ</p>
+                                <small class="text-muted text-decoration-line-through">25.900.000 đ</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6">
+                        <div class="card h-100">
+                            <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="Laptop">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Nhiều màu sắc</span>
+                                <h6 class="card-title">ASUS Gaming i7 / 16GB / SSD 512GB</h6>
+                                <p class="text-danger fw-bold mb-0">21.990.000 đ</p>
+                                <small class="text-muted text-decoration-line-through">25.900.000 đ</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6">
+                        <div class="card h-100">
+                            <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="Laptop">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Nhiều màu sắc</span>
+                                <h6 class="card-title">ASUS Gaming i7 / 16GB / SSD 512GB</h6>
+                                <p class="text-danger fw-bold mb-0">21.990.000 đ</p>
+                                <small class="text-muted text-decoration-line-through">25.900.000 đ</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6">
+                        <div class="card h-100">
+                            <img src="/photos/index-content/LaptopVP.jpg" class="card-img-top" alt="Laptop">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Nhiều màu sắc</span>
+                                <h6 class="card-title">ASUS Gaming i7 / 16GB / SSD 512GB</h6>
+                                <p class="text-danger fw-bold mb-0">21.990.000 đ</p>
+                                <small class="text-muted text-decoration-line-through">25.900.000 đ</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
