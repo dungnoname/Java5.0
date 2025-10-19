@@ -1,0 +1,35 @@
+package com.poly.assigment.service;
+
+import com.poly.assigment.dao.DanhGiaDAO;
+import com.poly.assigment.entity.DanhGia;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class DanhGiaServiceImpl implements DanhGiaService {
+
+    @Autowired
+    private DanhGiaDAO danhGiaDAO;
+
+    @Override
+    public List<DanhGia> findAll() {
+        return danhGiaDAO.findAll();
+    }
+
+    @Override
+    public Optional<DanhGia> findById(Integer id) {
+        return danhGiaDAO.findById(id);
+    }
+
+    @Override
+    public DanhGia save(DanhGia dg) {
+        return danhGiaDAO.save(dg);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        danhGiaDAO.deleteById(id);
+    }
+}

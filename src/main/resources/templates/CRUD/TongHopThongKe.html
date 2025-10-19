@@ -1,14 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{/CRUD/shared/layout :: layout(~{::title}, ~{::section})}">
+      th:replace="~{CRUD/shared/layout :: layout(~{::title}, ~{::content})}">
 <head>
-  <title>Tổng Hợp Thống Kê</title>
+  <title>Tổng hợp – Thống kê kết quả kinh doanh</title>
 </head>
 <body>
-<section>
+<content>
+  <div class="container mt-4">
+    <h3 class="mb-4 text-center fw-bold">Tổng hợp – Thống kê kết quả kinh doanh</h3>
 
-  <h2>Tổng Hợp Thống Kê</h2>
-  <p>Nội dung thống kê sẽ hiển thị ở đây.</p>
-</section>
+    <!-- Thống kê doanh thu theo loại hàng -->
+    <div class="mb-5">
+      <h5 class="mb-3 text-primary">1️⃣ Thống kê doanh thu theo loại hàng</h5>
+      <table class="table table-bordered table-hover text-center align-middle">
+        <thead class="table-dark">
+        <tr>
+          <th>STT</th>
+          <th>Tên loại</th>
+          <th>Tổng doanh thu</th>
+          <th>Tổng số lượng</th>
+          <th>Giá cao nhất</th>
+          <th>Giá thấp nhất</th>
+          <th>Giá trung bình</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1</td>
+          <td>Điện thoại</td>
+          <td>45,000,000</td>
+          <td>5</td>
+          <td>28,000,000</td>
+          <td>18,000,000</td>
+          <td>22,500,000</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Laptop</td>
+          <td>30,000,000</td>
+          <td>1</td>
+          <td>30,000,000</td>
+          <td>30,000,000</td>
+          <td>30,000,000</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Top 10 khách hàng VIP -->
+    <div>
+      <h5 class="mb-3 text-success">2️⃣ Top 10 khách hàng VIP</h5>
+      <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-dark">
+        <tr>
+          <th>STT</th>
+          <th>Tên khách hàng</th>
+          <th>Tổng tiền đã mua</th>
+          <th>Ngày mua đầu tiên</th>
+          <th>Ngày mua sau cùng</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1</td>
+          <td>Lê Hoàng Chấn Kiệt</td>
+          <td>46,000,000</td>
+          <td>2024-01-05</td>
+          <td>2024-03-15</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Phạm Đăng Khoa</td>
+          <td>30,000,000</td>
+          <td>2024-02-01</td>
+          <td>2024-04-20</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</content>
 </body>
 </html>
