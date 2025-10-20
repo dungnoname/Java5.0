@@ -27,6 +27,9 @@ public class SanPham {
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String moTa;
 
+    @Column
+    private String imgUrl;
+
     private Boolean trangThai;
 
     @ManyToOne

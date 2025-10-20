@@ -7,47 +7,61 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/java5")
+
 public class HomeController {
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String home() {
-        return "home/index";
+        return "home/index"; // Trang chủ
     }
 
-    @GetMapping("/SanPham/list")
-    public String gioiThieu() {
-        return "home/danhMucSanPham";
+    @RequestMapping("/admin")
+    public String adminHome() {
+        return "CRUD/QuanLySanPham";
     }
 
-    @GetMapping("/SanPham/detail/{id}")
-    public String chiTietSanPham(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("productId", id);
-        return "home/chiTietSanPham";
-    }
 
-    @GetMapping("/GioHang/list")
-    public String gioHang() {
-        return "home/gioHang";
-    }
 
-    @GetMapping("/TaiKhoan")
-    public String taiKhoan() {
-        return "home/taiKhoan";
-    }
 
-    @GetMapping("/donHang")
-    public String donHang() {
-        return "home/donHang";
-    }
 
-    @GetMapping("/dang-ky")
-    public String dangKy() {
-        return "home/dangKy";
-    }
-
-    @GetMapping("/dang-nhap")
-    public String dangNhap() {
-        return "home/dangNhap";
-    }
+//    @GetMapping("/")
+//    public String home() {
+//        return "home/index";
+//    }
+//
+//    @GetMapping("/SanPham/list")
+//    public String gioiThieu() {
+//        return "home/danhMucSanPham";
+//    }
+//
+//    @GetMapping("/SanPham/detail/{id}")
+//    public String chiTietSanPham(@PathVariable("id") Integer id, Model model) {
+//        model.addAttribute("productId", id);
+//        return "home/chiTietSanPham";
+//    }
+//
+//    @GetMapping("/GioHang/list")
+//    public String gioHang() {
+//        return "home/gioHang";
+//    }
+//
+//    @GetMapping("/TaiKhoan")
+//    public String taiKhoan() {
+//        return "home/taiKhoan";
+//    }
+//
+//    @GetMapping("/donHang")
+//    public String donHang() {
+//        return "home/donHang";
+//    }
+//
+//    @GetMapping("/dang-ky")
+//    public String dangKy() {
+//        return "home/dangKy";
+//    }
+//
+//    @GetMapping("/dang-nhap")
+//    public String dangNhap() {
+//        return "home/dangNhap";
+//    }
 }

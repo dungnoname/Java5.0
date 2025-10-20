@@ -4,6 +4,8 @@ import com.poly.assigment.dao.SanPhamDAO;
 import com.poly.assigment.entity.SanPham;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,5 +33,15 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public void deleteById(Integer id) {
         sanPhamDAO.deleteById(id);
+    }
+
+    @Override
+    public List<SanPham> findByLoaiVaGia(Integer maLoai, BigDecimal minPrice, BigDecimal maxPrice) {
+        if (minPrice != null && maxPrice != null) {
+            return sanPhamDAO.findByLoaiSanPham_MaLoaiAndDonGiaBanBetween(maLoai, minPrice, maxPrice);
+        } else {
+            // chỉ lọc theo loại
+            return sanPhamDAO.findByLoaiSanPham_MaLoai(maLoai);
+        }
     }
 }

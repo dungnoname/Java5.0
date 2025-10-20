@@ -2,6 +2,7 @@ package com.poly.assigment.service;
 
 import com.poly.assigment.dao.DanhGiaDAO;
 import com.poly.assigment.entity.DanhGia;
+import com.poly.assigment.entity.SanPham;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,6 +13,11 @@ public class DanhGiaServiceImpl implements DanhGiaService {
 
     @Autowired
     private DanhGiaDAO danhGiaDAO;
+
+    @Override
+    public List<DanhGia> findBySanPham(SanPham sanPham) {
+        return danhGiaDAO.findBySanPham(sanPham);
+    }
 
     @Override
     public List<DanhGia> findAll() {
