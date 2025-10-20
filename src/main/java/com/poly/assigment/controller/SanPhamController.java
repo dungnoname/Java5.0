@@ -64,7 +64,7 @@ public class SanPhamController {
         return "home/ChiTietSanPham";
     }
 
-    @GetMapping("/SanPham/loc")
+    @GetMapping("/loc")
     public String locSanPham(
             @RequestParam(required = false) Integer maLoai,
             @RequestParam(required = false) BigDecimal minPrice,
