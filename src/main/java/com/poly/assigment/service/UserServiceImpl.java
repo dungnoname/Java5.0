@@ -33,4 +33,37 @@ public class UserServiceImpl implements UserService {
     public void deleteById(Integer id) {
         userDAO.deleteById(id);
     }
+/// update by dung for form đăng kí
+@Override
+public Optional<User> findByTenDangNhap(String tenDangNhap) {
+    return userDAO.findByTenDangNhap(tenDangNhap);
+}
+        public Optional<User> findByEmail(String email) {
+            return userDAO.findByEmail(email);
+        }
+
+    @Override
+    public void updateResetPasswordToken(String token, String email) throws Exception {
+        Optional<User> userOptional = userDAO.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setResetPasswordToken(token);
+            userDAO.save(user);
+        } else {
+            throw new Exception("Không tìm thấy người dùng nào với email: " + email);
+        }
+    }
+
+    @Override
+    public Optional<User> getByResetPasswordToken(String token) {
+        return userDAO.findByResetPasswordToken(token);
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+
+        user.setMatKhau(newPassword);
+        user.setResetPasswordToken(null);
+        userDAO.save(user);
+    }
 }

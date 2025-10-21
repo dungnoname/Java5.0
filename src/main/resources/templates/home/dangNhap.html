@@ -13,43 +13,49 @@
                 <div class="card shadow-sm p-4">
                     <h4 class="text-center mb-4">Đăng nhập</h4>
 
-                    <form>
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        Tên đăng nhập hoặc mật khẩu không chính xác.
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success">
+                        Bạn đã đăng xuất thành công.
+                    </div>
+                    <!-- Thêm thông báo khi đổi mật khẩu thành công -->
+                    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+
+                    <form th:action="@{/dang-nhap}" method="post">
                         <div class="mb-3">
                             <label class="form-label">Tên đăng nhập</label>
-                            <input type="text" class="form-control" placeholder="Nhập tên đăng nhập">
+                            <input type="text" name="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" placeholder="Nhập mật khẩu">
+                            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
                         </div>
 
                         <div class="text-end mb-3">
-                            <a href="#" class="text-decoration-none small">Quên mật khẩu?</a>
+                            <!-- SỬA LỖI: Thêm th:href để link đến trang quên mật khẩu -->
+                            <a th:href="@{/quen-mat-khau}" class="text-decoration-none small">Quên mật khẩu?</a>
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
                     </form>
 
                     <div class="text-center my-3">
-                        <span class="text-muted">hoặc</span>
+                        <span class="text-muted"></span>
                     </div>
-
-                    <button class="btn btn-outline-danger w-100 mb-3">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
-                             alt="" width="20" class="me-2">
-                        Đăng nhập bằng Google
-                    </button>
+                    <div class="text-center my-3">
+                        <span class="text-muted"></span>
+                    </div>
 
                     <div class="text-center">
                         <small>Chưa có tài khoản?
-                            <a th:href="@{/java5/dang-ky}">Đăng ký ngay</a>
+                            <a th:href="@{/dang-ky}">Đăng ký ngay</a>
                         </small>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br><br><br><br><br><br><br><br><br><br>
 </content>
 </body>
 </html>

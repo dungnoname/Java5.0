@@ -32,7 +32,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "roleId")
     private Role role;
-
+///    update 22/10
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+    ///    update 22/10
     // Quan hệ 2 chiều
     @OneToMany(mappedBy = "nguoiDung")
     private List<HoaDon> hoaDonNguoiDung;
