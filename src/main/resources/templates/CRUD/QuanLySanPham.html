@@ -2,134 +2,148 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{CRUD/shared/layout :: layout(~{::title}, ~{::content})}">
 <head>
-  <title>Quản lý sản phẩm</title>
+  <title>Quản lý Sản phẩm</title>
 </head>
-
 <body>
 <content>
-  <div class="container my-4">
-    <h3 class="mb-4 text-center">Quản lý sản phẩm</h3>
+  <div class="container mt-4">
+    <h3 class="mb-3">Quản lý Sản phẩm</h3>
 
-    <div class="d-flex justify-content-end mb-3">
-      <button class="btn btn-primary">+ Thêm sản phẩm</button>
+    <!-- Hiển thị thông báo thành công/lỗi -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+      <span th:text="${successMessage}"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+      <span th:text="${errorMessage}"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <table class="table table-bordered table-hover text-center align-middle">
+    <!-- Form thêm/sửa sản phẩm -->
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">
+        Thêm/Sửa Sản phẩm
+      </div>
+      <div class="card-body">
+        <form th:action="@{/admin/products/save}" th:object="${sanPham}" method="post">
+          <input type="hidden" th:field="*{maSP}" />
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="tenSP" class="form-label">Tên Sản Phẩm</label>
+              <input type="text" class="form-control" id="tenSP" th:field="*{tenSP}"
+                     th:classappend="${#fields.hasErrors('tenSP') ? 'is-invalid' : ''}" required>
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('tenSP')}" th:errors="*{tenSP}"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="donGiaBan" class="form-label">Đơn Giá Bán</label>
+              <input type="number" step="0.01" class="form-control" id="donGiaBan" th:field="*{donGiaBan}"
+                     th:classappend="${#fields.hasErrors('donGiaBan') ? 'is-invalid' : ''}" required>
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('donGiaBan')}" th:errors="*{donGiaBan}"></div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="soLuongTon" class="form-label">Số Lượng Tồn</label>
+              <input type="number" class="form-control" id="soLuongTon" th:field="*{soLuongTon}"
+                     th:classappend="${#fields.hasErrors('soLuongTon') ? 'is-invalid' : ''}" required>
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('soLuongTon')}" th:errors="*{soLuongTon}"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="imgUrl" class="form-label">URL Hình Ảnh</label>
+              <input type="text" class="form-control" id="imgUrl" th:field="*{imgUrl}"
+                     th:classappend="${#fields.hasErrors('imgUrl') ? 'is-invalid' : ''}">
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('imgUrl')}" th:errors="*{imgUrl}"></div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="moTa" class="form-label">Mô Tả</label>
+            <textarea class="form-control" id="moTa" th:field="*{moTa}" rows="3"
+                      th:classappend="${#fields.hasErrors('moTa') ? 'is-invalid' : ''}"></textarea>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('moTa')}" th:errors="*{moTa}"></div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="loaiSanPham" class="form-label">Loại Sản Phẩm</label>
+              <select class="form-select" id="loaiSanPham" th:field="*{loaiSanPham.maLoai}"
+                      th:classappend="${#fields.hasErrors('loaiSanPham.maLoai') ? 'is-invalid' : ''}" required>
+                <option value="">-- Chọn loại sản phẩm --</option>
+                <option th:each="loai : ${loaiSanPhams}"
+                        th:value="${loai.maLoai}"
+                        th:text="${loai.tenLoai}"
+                        th:selected="${sanPham.loaiSanPham != null and loai.maLoai == sanPham.loaiSanPham.maLoai}">
+                </option>
+              </select>
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('loaiSanPham.maLoai')}" th:errors="*{loaiSanPham.maLoai}"></div>
+            </div>
+            <div class="col-md-6">
+              <label for="hang" class="form-label">Hãng</label>
+              <select class="form-select" id="hang" th:field="*{hang.maHang}"
+                      th:classappend="${#fields.hasErrors('hang.maHang') ? 'is-invalid' : ''}" required>
+                <option value="">-- Chọn hãng --</option>
+                <option th:each="h : ${hangs}"
+                        th:value="${h.maHang}"
+                        th:text="${h.tenHang}"
+                        th:selected="${sanPham.hang != null and h.maHang == sanPham.hang.maHang}">
+                </option>
+              </select>
+              <div class="invalid-feedback" th:if="${#fields.hasErrors('hang.maHang')}" th:errors="*{hang.maHang}"></div>
+            </div>
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="trangThai" th:field="*{trangThai}">
+            <label class="form-check-label" for="trangThai">Trạng Thái (Kích hoạt/Không kích hoạt)</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Lưu</button>
+          <a th:href="@{/admin/products}" class="btn btn-secondary">Làm mới Form</a>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bảng danh sách sản phẩm -->
+    <table class="table table-bordered table-striped align-middle text-center">
       <thead class="table-dark">
       <tr>
-        <th>STT</th>
-        <th>Mã SP</th>
-        <th>Tên sản phẩm</th>
-        <th>Đơn giá bán</th>
-        <th>Mã loại</th>
-        <th>Mã hãng</th>
-        <th>Hành động</th>
+        <th>ID</th>
+        <th>Tên SP</th>
+        <th>Đơn Giá Bán</th>
+        <th>Số Lượng Tồn</th>
+        <th>Mô Tả</th>
+        <th>URL Hình Ảnh</th>
+        <th>Trạng Thái</th>
+        <th>Loại SP</th>
+        <th>Hãng</th>
+        <th>Action</th>
       </tr>
       </thead>
       <tbody>
-      <!-- Dữ liệu tĩnh ví dụ -->
-      <tr>
-        <td>1</td>
-        <td>101</td>
-        <td>iPhone 15 Pro</td>
-        <td>32,000,000</td>
-        <td>1</td>
-        <td>1</td>
+      <tr th:each="sp : ${sanPhams}">
+        <td th:text="${sp.maSP}"></td>
+        <td th:text="${sp.tenSP}"></td>
+        <td th:text="${#numbers.formatCurrency(sp.donGiaBan)}"></td>
+        <td th:text="${sp.soLuongTon}"></td>
+        <td th:text="${sp.moTa}"></td>
         <td>
-          <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal"
-                  onclick="loadEditData(101, 'iPhone 15 Pro', 32000000, 1, 1)">
-            Sửa
-          </button>
-          <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                  onclick="setDeleteId(101)">
-            Xóa
-          </button>
+          <img th:src="${sp.imgUrl}" alt="Hình ảnh sản phẩm" style="width: 50px; height: 50px; object-fit: cover;">
         </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>102</td>
-        <td>Asus TUF Gaming</td>
-        <td>25,000,000</td>
-        <td>2</td>
-        <td>3</td>
         <td>
-          <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal"
-                  onclick="loadEditData(102, 'Asus TUF Gaming', 25000000, 2, 3)">
-            Sửa
-          </button>
-          <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                  onclick="setDeleteId(102)">
-            Xóa
-          </button>
+          <span th:text="${sp.trangThai ? 'Kích hoạt' : 'Không kích hoạt'}"></span>
+        </td>
+        <td th:text="${sp.loaiSanPham != null ? sp.loaiSanPham.tenLoai : 'Chưa gán'}"></td>
+        <td th:text="${sp.hang != null ? sp.hang.tenHang : 'Chưa gán'}"></td>
+        <td>
+          <a th:href="@{/admin/products/edit/{id}(id=${sp.maSP})}" class="btn btn-sm btn-warning">Sửa</a>
+          <a th:href="@{/admin/products/delete/{id}(id=${sp.maSP})}" class="btn btn-sm btn-danger"
+             onclick="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?');">Xóa</a>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-
-  <!-- Modal Sửa -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <form>
-          <div class="modal-header bg-warning text-dark">
-            <h5 class="modal-title">Sửa thông tin sản phẩm</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Mã sản phẩm</label>
-              <input type="text" id="editMaSP" class="form-control" readonly>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Tên sản phẩm</label>
-              <input type="text" id="editTenSP" class="form-control">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Đơn giá bán</label>
-              <input type="number" id="editDonGiaBan" class="form-control">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Mã loại</label>
-              <input type="text" id="editMaLoai" class="form-control" readonly>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Mã hãng</label>
-              <input type="text" id="editMaHang" class="form-control" readonly>
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Xóa -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title">Xác nhận xóa</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p>Bạn chắc chắn muốn xóa sản phẩm này?</p>
-          <input type="hidden" id="deleteId">
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-          <button class="btn btn-danger" onclick="confirmDelete()">Xóa</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </content>
 </body>
 </html>

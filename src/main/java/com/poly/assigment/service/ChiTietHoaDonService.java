@@ -1,6 +1,8 @@
 package com.poly.assigment.service;
 
 import com.poly.assigment.entity.ChiTietHoaDon;
+import com.poly.assigment.entity.HoaDon;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,4 +11,7 @@ public interface ChiTietHoaDonService {
     Optional<ChiTietHoaDon> findById(Integer id);
     ChiTietHoaDon save(ChiTietHoaDon cthd);
     void deleteById(Integer id);
-}
+
+    List<ChiTietHoaDon> findByHoaDon(HoaDon hoaDon);
+
+}//

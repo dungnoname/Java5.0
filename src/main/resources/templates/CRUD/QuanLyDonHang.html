@@ -17,41 +17,30 @@
         <th>Mã HĐ</th>
         <th>Ngày lập</th>
         <th>Mã người dùng</th>
-        <th>Mã nhân viên</th>
-        <th>Mã trạng thái</th>
+        <th>Nhân viên</th>
+        <th>Trạng thái</th>
         <th>Action</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>1</td>
-        <td>HD001</td>
-        <td>2025-10-04</td>
-        <td>2</td>
-        <td>1</td>
-        <td>3</td>
+      <tr th:each="hd, iStat : ${hoaDonList}">
+        <td th:text="${iStat.index + 1}"></td>
+        <td th:text="${hd.maHD}"></td>
+        <td th:text="${#temporals.format(hd.ngayLap, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${hd.nguoiDung != null ? hd.nguoiDung.userId : '—'}"></td>
+        <td th:text="${hd.nhanVien != null ? hd.nhanVien.hoTen : 'Nhân viên tạm thời'}"></td>
+        <td th:text="${hd.trangThaiDonHang != null ? hd.trangThaiDonHang.tenTT : '—'}"></td>
         <td>
-          <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+          <form th:action="@{'/CRUD/quan-ly-don-hang/delete/' + ${hd.maHD}}" method="post" class="d-inline">
+            <button class="btn btn-sm btn-danger" type="submit">Xóa</button>
+          </form>
+
+          <button class="btn btn-sm btn-warning btn-edit"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editModal"
+                  th:attr="data-id=${hd.maHD},
+                                     data-matt=${hd.trangThaiDonHang != null ? hd.trangThaiDonHang.maTT : 0}">
             Sửa
-          </button>
-          <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-            Xóa
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>HD002</td>
-        <td>2025-10-03</td>
-        <td>3</td>
-        <td>1</td>
-        <td>1</td>
-        <td>
-          <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-            Sửa
-          </button>
-          <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-            Xóa
           </button>
         </td>
       </tr>
@@ -68,42 +57,25 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="form-label">Mã hóa đơn</label>
-              <input type="text" class="form-control" value="HD001" readonly>
-            </div>
+          <form th:action="@{/CRUD/quan-ly-don-hang/update}" method="post">
+            <input type="hidden" id="edit-id" name="id">
 
             <div class="mb-3">
-              <label class="form-label">Ngày lập</label>
-              <input type="datetime-local" class="form-control" value="2025-10-04T10:00">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Mã người dùng</label>
-              <input type="number" class="form-control" value="2">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Mã nhân viên</label>
-              <input type="number" class="form-control" value="1">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Mã trạng thái</label>
-              <select class="form-select">
-                <option value="1">Chờ xác nhận</option>
-                <option value="2">Đang giao</option>
-                <option value="3" selected>Hoàn thành</option>
-                <option value="4">Đã hủy</option>
+              <label class="form-label">Trạng thái</label>
+              <select class="form-select" id="edit-trangthai" name="trangThaiId">
+                <option value="">-- Chọn trạng thái --</option>
+                <option th:each="tt : ${trangThaiList}"
+                        th:value="${tt.maTT}"
+                        th:text="${tt.tenTT}">
+                </option>
               </select>
             </div>
-          </form>
-        </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-          <button type="button" class="btn btn-warning">Lưu thay đổi</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <button type="submit" class="btn btn-warning">Lưu thay đổi</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -127,6 +99,32 @@
       </div>
     </div>
   </div>
+
+  <!-- JS để set giá trị cho modal Sửa -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const editButtons = document.querySelectorAll(".btn-edit");
+      const editIdInput = document.getElementById("edit-id");
+      const editTrangThaiSelect = document.getElementById("edit-trangthai");
+
+      editButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          const maTT = btn.getAttribute("data-matt");
+
+          editIdInput.value = id;
+
+          // Reset lựa chọn cũ
+          for (let option of editTrangThaiSelect.options) {
+            option.selected = false;
+            if (option.value === maTT) {
+              option.selected = true;
+            }
+          }
+        });
+      });
+    });
+  </script>
 
 </content>
 </body>
