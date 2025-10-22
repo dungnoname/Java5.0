@@ -9,7 +9,6 @@
     <div class="container mt-4">
         <h3 class="mb-3">Quản lý người dùng</h3>
 
-<<<<<<< Updated upstream
         <!-- Hiển thị thông báo thành công/lỗi -->
         <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
             <span th:text="${successMessage}"></span>
@@ -20,8 +19,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-=======
->>>>>>> Stashed changes
         <!-- Form thêm/sửa người dùng -->
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
@@ -33,7 +30,6 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="hoTen" class="form-label">Họ Tên</label>
-<<<<<<< Updated upstream
                             <input type="text" class="form-control" id="hoTen" th:field="*{hoTen}"
                                    th:classappend="${#fields.hasErrors('hoTen') ? 'is-invalid' : ''}" required>
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('hoTen')}" th:errors="*{hoTen}"></div>
@@ -43,20 +39,12 @@
                             <input type="date" class="form-control" id="ngaySinh" th:field="*{ngaySinh}"
                                    th:classappend="${#fields.hasErrors('ngaySinh') ? 'is-invalid' : ''}">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('ngaySinh')}" th:errors="*{ngaySinh}"></div>
-=======
-                            <input type="text" class="form-control" id="hoTen" th:field="*{hoTen}" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="ngaySinh" class="form-label">Ngày Sinh</label>
-                            <input type="date" class="form-control" id="ngaySinh" th:field="*{ngaySinh}">
->>>>>>> Stashed changes
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="gioiTinh" class="form-label">Giới Tính</label>
-<<<<<<< Updated upstream
                             <select class="form-select" id="gioiTinh" th:field="*{gioiTinh}"
                                     th:classappend="${#fields.hasErrors('gioiTinh') ? 'is-invalid' : ''}">
                                 <option value="">-- Chọn giới tính --</option> <!-- Thêm tùy chọn trống để bắt lỗi @NotNull -->
@@ -70,23 +58,12 @@
                             <input type="text" class="form-control" id="soDienThoai" th:field="*{soDienThoai}"
                                    th:classappend="${#fields.hasErrors('soDienThoai') ? 'is-invalid' : ''}">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('soDienThoai')}" th:errors="*{soDienThoai}"></div>
-=======
-                            <select class="form-select" id="gioiTinh" th:field="*{gioiTinh}">
-                                <option value="true">Nam</option>
-                                <option value="false">Nữ</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="soDienThoai" class="form-label">Số Điện Thoại</label>
-                            <input type="text" class="form-control" id="soDienThoai" th:field="*{soDienThoai}">
->>>>>>> Stashed changes
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="email" class="form-label">Email</label>
-<<<<<<< Updated upstream
                             <input type="email" class="form-control" id="email" th:field="*{email}"
                                    th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
@@ -97,20 +74,12 @@
                             <input type="text" class="form-control" id="diaChi" th:field="*{diaChi}"
                                    th:classappend="${#fields.hasErrors('diaChi') ? 'is-invalid' : ''}">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('diaChi')}" th:errors="*{diaChi}"></div>
-=======
-                            <input type="email" class="form-control" id="email" th:field="*{email}">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="diaChi" class="form-label">Địa Chỉ</label>
-                            <input type="text" class="form-control" id="diaChi" th:field="*{diaChi}">
->>>>>>> Stashed changes
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="tenDangNhap" class="form-label">Tên Đăng Nhập</label>
-<<<<<<< Updated upstream
                             <input type="text" class="form-control" id="tenDangNhap" th:field="*{tenDangNhap}"
                                    th:classappend="${#fields.hasErrors('tenDangNhap') ? 'is-invalid' : ''}" required>
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('tenDangNhap')}" th:errors="*{tenDangNhap}"></div>
@@ -124,7 +93,7 @@
                                    th:classappend="${#fields.hasErrors('matKhau') ? 'is-invalid' : ''}"
                                    th:placeholder="${user.userId != null ? 'Không thể thay đổi mật khẩu từ đây' : 'Mật khẩu là bắt buộc'}"
                                    th:required="${user.userId == null}"
-                                   th:readonly="${user.userId != null}"> <!-- THAY ĐỔI: Thêm th:readonly -->
+                                   th:readonly="${user.userId != null}">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('matKhau')}" th:errors="*{matKhau}"></div>
                             <small class="form-text text-muted" th:if="${user.userId != null}">
                                 Để đổi mật khẩu, vui lòng sử dụng chức năng đổi mật khẩu riêng (nếu có).
@@ -151,28 +120,6 @@
 
                     <button type="submit" class="btn btn-primary">Lưu</button>
                     <a th:href="@{/admin/users}" class="btn btn-secondary">Làm mới Form</a>
-=======
-                            <input type="text" class="form-control" id="tenDangNhap" th:field="*{tenDangNhap}" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="matKhau" class="form-label">Mật Khẩu</label>
-                            <input type="password" class="form-control" id="matKhau" th:field="*{matKhau}">
-                            <small class="form-text text-muted">Chỉ nhập khi muốn đổi mật khẩu</small>
-                        </div>
-                    </div>
-
-                    <!-- Bạn cần có một Role entity và DAO để chọn Role, ở đây tôi tạm thời bỏ qua hoặc để mặc định nếu Role luôn là 1 giá trị -->
-                    <!-- Ví dụ: <div class="mb-3">
-                        <label for="role" class="form-label">Vai trò</label>
-                        <select class="form-select" id="role" th:field="*{role.roleId}">
-                            <option value="1">Người dùng</option>
-                            <option value="2">Admin</option>
-                        </select>
-                    </div> -->
-
-                    <button type="submit" class="btn btn-primary">Lưu</button>
-                    <button type="reset" class="btn btn-secondary">Làm mới</button>
->>>>>>> Stashed changes
                 </form>
             </div>
         </div>
@@ -203,11 +150,7 @@
                 <td th:text="${u.email}"></td>
                 <td th:text="${u.diaChi}"></td>
                 <td th:text="${u.tenDangNhap}"></td>
-<<<<<<< Updated upstream
                 <td th:text="${u.role != null ? u.role.roleName : 'Chưa gán'}"></td>
-=======
-                <td th:text="${u.role != null ? u.role.roleName : 'N/A'}"></td>
->>>>>>> Stashed changes
                 <td>
                     <a th:href="@{/admin/users/edit/{id}(id=${u.userId})}" class="btn btn-sm btn-warning">Sửa</a>
                     <a th:href="@{/admin/users/delete/{id}(id=${u.userId})}" class="btn btn-sm btn-danger"
@@ -218,7 +161,7 @@
         </table>
 
         <!-- Phân trang -->
-        <nav aria-label="Page navigation" th:if="${userPage != null and userPage.totalPages > 0}"> <!-- THAY ĐỔI: Thêm null check -->
+        <nav aria-label="Page navigation" th:if="${userPage != null and userPage.totalPages > 0}">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${userPage.first ? 'disabled' : ''}">
                     <a class="page-link" th:href="@{/admin/users(page=${userPage.number - 1}, size=${userPage.size})}">Previous</a>
