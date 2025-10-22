@@ -127,7 +127,11 @@
             <div th:if="${nhungDanhGia != null and !nhungDanhGia.isEmpty()}">
               <div th:each="rv : ${nhungDanhGia}" class="border-bottom pb-2 mb-2">
                 <p>
-                  <strong th:text="${rv.user.hoTen}">Tên người dùng</strong>
+                  <strong th:text="${rv.user != null ? (rv.user.hoTen ?: rv.user.tenDangNhap) : 'Người dùng ẩn danh'}">
+                    Tên người dùng
+                  </strong>
+
+
                   <small class="text-muted ms-2"
                          th:text="${#temporals.format(rv.ngayDanhGia, 'dd/MM/yyyy HH:mm')}">01/01/2025</small>
                 </p>

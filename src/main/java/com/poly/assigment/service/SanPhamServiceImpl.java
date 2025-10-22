@@ -1,6 +1,7 @@
 package com.poly.assigment.service;
 
 import com.poly.assigment.dao.SanPhamDAO;
+import com.poly.assigment.entity.HoaDon;
 import com.poly.assigment.entity.SanPham;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,10 @@ public class SanPhamServiceImpl implements SanPhamService {
             // chỉ lọc theo loại
             return sanPhamDAO.findByLoaiSanPham_MaLoai(maLoai);
         }
+    }
+
+    @Override
+    public List<SanPham> findByHoaDon(HoaDon hoaDon) {
+        return sanPhamDAO.findByChiTietHoaDonList_HoaDon(hoaDon);
     }
 }

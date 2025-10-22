@@ -1,5 +1,6 @@
 package com.poly.assigment.service;
 
+import com.poly.assigment.entity.HoaDon;
 import com.poly.assigment.entity.LoaiSanPham;
 import com.poly.assigment.entity.SanPham;
 
@@ -14,4 +15,6 @@ public interface SanPhamService {
     void deleteById(Integer id);
 
     List<SanPham> findByLoaiVaGia(Integer maLoai, BigDecimal minPrice, BigDecimal maxPrice);
+
+    public List<SanPham> findByHoaDon(HoaDon hoaDon);
 }

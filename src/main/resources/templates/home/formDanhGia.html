@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/shared/layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Đánh giá đơn hàng</title>
+</head>
+<body>
+<section>
+    <div class="container mt-4">
+        <h4>Đánh giá đơn hàng #<span th:text="${hoaDon.maHD}"></span></h4>
+
+        <form th:action="@{'/danh-gia/submit/' + ${hoaDon.maHD}}" method="post">
+            <div th:each="cthd : ${chiTietList}" class="card mb-3 p-3">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <img th:src="${cthd.sanPham.imgUrl}" class="img-fluid" alt="Sản phẩm">
+                    </div>
+                    <div class="col-10">
+                        <h6 th:text="${cthd.sanPham.tenSP}"></h6>
+
+                        <!-- Chọn rating -->
+                        <div class="mb-2">
+                            <label>Đánh giá:</label>
+                            <select class="form-select" th:name="${'rating_' + cthd.sanPham.maSP}" required>
+                                <option value="">Chọn số sao</option>
+                                <option value="1">1 ★</option>
+                                <option value="2">2 ★★</option>
+                                <option value="3">3 ★★★</option>
+                                <option value="4">4 ★★★★</option>
+                                <option value="5">5 ★★★★★</option>
+                            </select>
+                        </div>
+
+                        <!-- Nhập comment -->
+                        <div class="mb-2">
+                            <label>Bình luận:</label>
+                            <textarea class="form-control" th:name="${'comment_' + cthd.sanPham.maSP}" rows="2"
+                                      placeholder="Viết cảm nhận về sản phẩm"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-success">Gửi đánh giá</button>
+            <a href="/home/don-hang" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

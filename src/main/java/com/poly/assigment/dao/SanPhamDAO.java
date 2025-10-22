@@ -1,5 +1,6 @@
 package com.poly.assigment.dao;
 
+import com.poly.assigment.entity.HoaDon;
 import com.poly.assigment.entity.LoaiSanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,5 @@ import java.util.List;
 public interface SanPhamDAO extends JpaRepository<SanPham, Integer> {
     List<SanPham> findByLoaiSanPham_MaLoai(Integer maLoai);
     List<SanPham> findByLoaiSanPham_MaLoaiAndDonGiaBanBetween(Integer maLoai, BigDecimal min, BigDecimal max);
+    List<SanPham> findByChiTietHoaDonList_HoaDon(HoaDon hoaDon);
 }

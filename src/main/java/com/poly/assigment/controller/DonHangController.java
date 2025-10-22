@@ -51,7 +51,7 @@ public class DonHangController {
         model.addAttribute("gioHangList", gioHangList);
         model.addAttribute("tongTien", tongTien);
         model.addAttribute("hoaDonList", hoaDonList);
-
+        model.addAttribute("user", user);
         return "home/donHang";
     }
 
@@ -136,7 +136,7 @@ public class DonHangController {
         BigDecimal tongTien = chiTietList.stream()
                 .map(ct -> ct.getDonGia().multiply(BigDecimal.valueOf(ct.getSoLuongBan())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-
+        model.addAttribute("tongTien", tongTien);
         model.addAttribute("tongTien", tongTien);
         model.addAttribute("hoaDon", hoaDon);
         model.addAttribute("chiTietList", chiTietList);
