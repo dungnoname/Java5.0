@@ -98,20 +98,52 @@ public class ForgotPasswordController {
         return siteURL.replace(request.getServletPath(), "");
     }
 
-    private void sendEmail(String recipientEmail, String link) throws Exception {
+    public void sendEmail(String recipientEmail, String link) throws Exception {
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom("your-email@gmail.com", "Hỗ trợ khách hàng"); // Thay email của bạn vào đây
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        helper.setFrom("dungntts00667@fpt.edu.vn", "Hỗ trợ khách hàng"); // ✅ Thay email thật của bạn vào đây
         helper.setTo(recipientEmail);
-        String subject = "Link đặt lại mật khẩu của bạn";
-        String content = "<p>Chào bạn,</p>"
-                + "<p>Bạn đã yêu cầu đặt lại mật khẩu.</p>"
-                + "<p>Bấm vào link dưới đây để thay đổi mật khẩu:</p>"
-                + "<p><a href=\"" + link + "\">Đổi mật khẩu</a></p>"
-                + "<br>"
-                + "<p>Bỏ qua email này nếu bạn không thực hiện yêu cầu này.</p>";
+
+        String subject = "🔐 Đặt lại mật khẩu của bạn";
+
+        String content = """
+            <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 30px;">
+                <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;">
+                    
+                    <div style="background-color: #007bff; color: white; text-align: center; padding: 20px;">
+                        <h2 style="margin: 0;">Hỗ trợ khách hàng</h2>
+                    </div>
+                    
+                    <div style="padding: 25px; color: #333;">
+                        <p>Chào bạn,</p>
+                        <p>Bạn đã yêu cầu đặt lại mật khẩu cho tài khoản của mình.</p>
+                        <p>Vui lòng nhấn vào nút bên dưới để tiến hành thay đổi mật khẩu:</p>
+
+                        <div style="text-align: center; margin: 30px 0;">
+                            <a href="%s" 
+                               style="background-color: #007bff; color: white; padding: 14px 28px; 
+                                      text-decoration: none; border-radius: 8px; font-size: 16px; 
+                                      font-weight: bold; display: inline-block;">
+                                🔁 Đổi mật khẩu ngay
+                            </a>
+                        </div>
+
+                        <p>Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.</p>
+                        <br>
+                        <p>Trân trọng,<br><strong>Đội ngũ Hỗ trợ khách hàng</strong></p>
+                    </div>
+
+                    <div style="background-color: #f1f1f1; text-align: center; padding: 10px; font-size: 12px; color: #777;">
+                        © 2025 Công ty .... Mọi quyền được bảo lưu.
+                    </div>
+                </div>
+            </div>
+        """.formatted(link);
+
         helper.setSubject(subject);
         helper.setText(content, true);
+
         mailSender.send(message);
     }
 }
