@@ -13,4 +13,5 @@ public interface ChiTietHoaDonService {
     void deleteById(Integer id);
 
     List<ChiTietHoaDon> findByHoaDon(HoaDon hoaDon);
-}
+
+}//

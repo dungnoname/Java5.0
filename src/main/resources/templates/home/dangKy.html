@@ -13,20 +13,46 @@
                 <div class="card shadow-sm p-4">
                     <h4 class="text-center mb-4">Đăng ký tài khoản</h4>
 
-                    <form>
+                    <!-- Hiển thị lỗi chung (nếu có) -->
+                    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+                    <!-- SỬA LỖI: Thêm th:action, method, và th:object -->
+                    <form th:action="@{/dang-ky}" method="post" th:object="${user}" novalidate>
+
+                        <!-- BỔ SUNG: Thêm trường Họ Tên -->
                         <div class="mb-3">
-                            <label class="form-label">Tên đăng nhập</label>
-                            <input type="text" class="form-control" placeholder="Nhập tên đăng nhập">
+                            <label for="hoTen" class="form-label">Họ và tên</label>
+                            <input type="text" id="hoTen" class="form-control" th:field="*{hoTen}" placeholder="Nhập họ và tên">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('hoTen')}" th:errors="*{hoTen}"></div>
                         </div>
 
+                        <!-- BỔ SUNG: Thêm trường Email -->
                         <div class="mb-3">
-                            <label class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control" placeholder="Nhập mật khẩu">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" th:field="*{email}" placeholder="Nhập địa chỉ email">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
 
+                        <!-- SỬA LỖI: Thêm th:field -->
                         <div class="mb-3">
-                            <label class="form-label">Nhập lại mật khẩu</label>
-                            <input type="password" class="form-control" placeholder="Nhập lại mật khẩu">
+                            <label for="tenDangNhap" class="form-label">Tên đăng nhập</label>
+                            <input type="text" id="tenDangNhap" class="form-control" th:field="*{tenDangNhap}" placeholder="Nhập tên đăng nhập">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('tenDangNhap')}" th:errors="*{tenDangNhap}"></div>
+                        </div>
+
+                        <!-- SỬA LỖI: Thêm th:field -->
+                        <div class="mb-3">
+                            <label for="matKhau" class="form-label">Mật khẩu</label>
+                            <input type="password" id="matKhau" class="form-control" th:field="*{matKhau}" placeholder="Nhập mật khẩu">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('matKhau')}" th:errors="*{matKhau}"></div>
+                        </div>
+
+                        <!-- BỔ SUNG: Trường xác nhận mật khẩu (không bind) -->
+                        <div class="mb-3">
+                            <label for="confirmMatKhau" class="form-label">Nhập lại mật khẩu</label>
+                            <input type="password" id="confirmMatKhau" name="confirmMatKhau" class="form-control" placeholder="Nhập lại mật khẩu">
+                            <!-- Lỗi xác nhận mật khẩu sẽ được xử lý như một lỗi chung -->
                         </div>
 
                         <button type="submit" class="btn btn-success w-100">Đăng ký</button>
@@ -42,20 +68,15 @@
                         Đăng ký bằng Google
                     </button>
 
-                    <div class="alert alert-info small text-center mt-3 mb-0">
-                        Sau khi đăng ký, bạn sẽ nhận được email để kích hoạt tài khoản.
-                    </div>
-
                     <div class="text-center mt-3">
                         <small>Đã có tài khoản?
-                            <a th:href="@{/java5/dang-nhap}">Đăng nhập</a>
+                            <a th:href="@{/dang-nhap}">Đăng nhập</a>
                         </small>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br><br><br><br><br><br><br><br><br><br>
 </content>
 </body>
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{CRUD/shared/layout :: layout(~{::title}, ~{::content})}">
+<head>
+  <title>Quản lý Hãng Sản Phẩm</title>
+</head>
+<body>
+<content>
+  <div class="container my-4">
+    <h3 class="mb-3 text-center">Quản lý Hãng Sản Phẩm</h3>
+
+    <!-- Form Thêm mới / Chỉnh sửa -->
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0" th:text="${hang.maHang == null ? 'Thêm mới Hãng' : 'Chỉnh sửa Hãng'}">Thêm mới Hãng</h5>
+      </div>
+      <div class="card-body">
+        <form th:action="@{/admin/hang/save}" th:object="${hang}" method="post">
+          <!-- Trường ẩn để lưu maHang khi chỉnh sửa -->
+          <input type="hidden" th:field="*{maHang}" />
+
+          <div class="mb-3">
+            <label for="tenHang" class="form-label">Tên Hãng</label>
+            <input type="text" th:field="*{tenHang}" class="form-control" id="tenHang" required>
+          </div>
+
+          <button type="submit" class="btn btn-success">Lưu</button>
+          <a th:href="@{/admin/hang}" class="btn btn-secondary">Hủy</a>
+        </form>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Bảng danh sách Hãng -->
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Danh sách Hãng</h5>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped align-middle text-center">
+          <thead class="table-dark">
+          <tr>
+            <th>STT</th>
+            <th>Mã Hãng</th>
+            <th>Tên Hãng</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="h, i : ${listHang}">
+            <td th:text="${i.index + 1}"></td>
+            <td th:text="${h.maHang}"></td>
+            <td th:text="${h.tenHang}"></td>
+            <td>
+              <a th:href="@{/admin/hang/edit/{id}(id=${h.maHang})}" class="btn btn-sm btn-warning">Sửa</a>
+              <a th:href="@{/admin/hang/delete/{id}(id=${h.maHang})}" class="btn btn-sm btn-danger"
+                 onclick="return confirm('Bạn chắc chắn muốn xóa hãng sản phẩm này?');">Xóa</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</content>
+</body>
+</html>//
