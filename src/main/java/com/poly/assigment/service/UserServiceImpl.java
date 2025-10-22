@@ -3,8 +3,8 @@ package com.poly.assigment.service;
 import com.poly.assigment.dao.UserDAO;
 import com.poly.assigment.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page; // Import Page
-import org.springframework.data.domain.Pageable; // Import Pageable
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,51 +16,58 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
+    // ===== LẤY TOÀN BỘ NGƯỜI DÙNG =====
     @Override
     public List<User> findAll() {
         return userDAO.findAll();
     }
 
+    // ===== PHÂN TRANG NGƯỜI DÙNG =====
     @Override
-    public Page<User> findAll(Pageable pageable) { // Triển khai phương thức phân trang
+    public Page<User> findAll(Pageable pageable) {
         return userDAO.findAll(pageable);
     }
 
+    // ===== TÌM NGƯỜI DÙNG THEO ID =====
     @Override
     public Optional<User> findById(Integer id) {
         return userDAO.findById(id);
     }
 
+    // ===== LƯU HOẶC CẬP NHẬT NGƯỜI DÙNG =====
     @Override
     public User save(User user) {
         return userDAO.save(user);
     }
 
+    // ===== XÓA NGƯỜI DÙNG THEO ID =====
     @Override
     public void deleteById(Integer id) {
         userDAO.deleteById(id);
     }
 
-    /// update by dung for form đăng kí
+    // ===== TÌM NGƯỜI DÙNG THEO TÊN ĐĂNG NHẬP =====
     @Override
     public Optional<User> findByTenDangNhap(String tenDangNhap) {
         return userDAO.findByTenDangNhap(tenDangNhap);
     }
 
+    // ===== TÌM NGƯỜI DÙNG THEO EMAIL =====
     @Override
     public Optional<User> findByEmail(String email) {
         return userDAO.findByEmail(email);
     }
 
+    // ===== CẬP NHẬT TOKEN RESET PASSWORD =====
     @Override
     public void updateResetPasswordToken(String token, String email) throws Exception {
-        Optional<User> userOptional = userDAO.findByEmail(email);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
+        Optional<User> optionalUser = userDAO.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
             user.setResetPasswordToken(token);
             userDAO.save(user);
         } else {
-            throw new Exception("Không tìm thấy người dùng nào với email: " + email);
+            throw new Exception("Không tìm thấy người dùng với email: " + email);
         }
     }
 
@@ -71,10 +78,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updatePassword(User user, String newPassword) {
-        // TODO: MÃ HÓA MẬT KHẨU TRƯỚC KHI LƯU VÀO DATABASE
-        // user.setMatKhau(passwordEncoder.encode(newPassword));
-        user.setMatKhau(newPassword); // Tạm thời để nguyên, bạn cần thêm BCryptPasswordEncoder
+        user.setMatKhau(newPassword);
         user.setResetPasswordToken(null);
         userDAO.save(user);
     }
-}//
+}
