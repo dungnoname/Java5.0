@@ -2,6 +2,7 @@ package com.poly.assigment.service;
 
 import com.poly.assigment.dao.ChiTietHoaDonDAO;
 import com.poly.assigment.entity.ChiTietHoaDon;
+import com.poly.assigment.entity.HoaDon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -31,5 +32,10 @@ public class ChiTietHoaDonServiceImpl implements ChiTietHoaDonService {
     @Override
     public void deleteById(Integer id) {
         chiTietHoaDonDAO.deleteById(id);
+    }
+
+    @Override
+    public List<ChiTietHoaDon> findByHoaDon(HoaDon hoaDon) {
+        return chiTietHoaDonDAO.findByHoaDon(hoaDon);
     }
 }

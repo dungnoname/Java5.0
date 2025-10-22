@@ -18,98 +18,69 @@
                             <th style="width:50px;"></th>
                             <th>Sản phẩm</th>
                             <th>Giá</th>
-                            <th style="width:150px;">Số lượng</th>
+                            <th style="width:170px;">Số lượng</th>
                             <th>Tạm tính</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Item 1 -->
-                        <tr>
-                            <td><button class="btn btn-outline-danger btn-lg">✖</button></td>
+                        <!-- Lặp qua danh sách sản phẩm -->
+                        <tr th:each="item, itemStat : ${items}">
+                            <!-- Nút xóa -->
+                            <td>
+                                <a th:href="@{'/gio-hang/remove/' + ${item.sanPham.maSP}}"
+                                   class="btn btn-outline-danger btn-lg"
+                                   title="Xóa sản phẩm">✖</a>
+                            </td>
+
+                            <!-- Thông tin sản phẩm -->
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" width="80" class="me-3">
-                                    <a href="#" class="text-decoration-none">Dell Vostro 3520 i3-1215U/8GB/512GB SSD/15.6"FHD/Dos/Black</a>
+                                    <img th:src="${item.sanPham.imgUrl}" width="80" class="me-3 rounded">
+                                    <a th:href="@{'/SanPham/chi-tiet/' + ${item.sanPham.maSP}}"
+                                       class="text-decoration-none"
+                                       th:text="${item.sanPham.tenSP}">Tên sản phẩm</a>
                                 </div>
                             </td>
-                            <td>9.190.000 đ</td>
+
+                            <!-- Giá -->
+                            <td th:text="${#numbers.formatDecimal(item.sanPham.donGiaBan, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+
+                            <!-- Cập nhật số lượng -->
                             <td>
-                                <div class="input-group" style="max-width: 150px;">
-                                    <button class="btn btn-outline-secondary btn-lg">-</button>
-                                    <input type="text" class="form-control text-center fs-5" value="1">
-                                    <button class="btn btn-outline-secondary btn-lg">+</button>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <!-- Giảm -->
+                                    <form th:action="@{'/gio-hang/update/' + ${item.sanPham.maSP}}" method="post" class="d-inline">
+                                        <input type="hidden" name="soLuong"
+                                               th:value="${item.soLuong > 1 ? item.soLuong - 1 : 1}">
+                                        <button type="submit" class="btn btn-outline-secondary btn-lg"
+                                                th:disabled="${item.soLuong == 1}">−</button>
+                                    </form>
+
+                                    <!-- Hiển thị số lượng -->
+                                    <span class="mx-3 fs-5" th:text="${item.soLuong}">1</span>
+
+                                    <!-- Tăng -->
+                                    <form th:action="@{'/gio-hang/update/' + ${item.sanPham.maSP}}" method="post" class="d-inline">
+                                        <input type="hidden" name="soLuong" th:value="${item.soLuong + 1}">
+                                        <button type="submit" class="btn btn-outline-secondary btn-lg">+</button>
+                                    </form>
                                 </div>
                             </td>
-                            <td>9.190.000 đ</td>
+
+                            <!-- Tạm tính -->
+                            <td th:text="${#numbers.formatDecimal(tamTinhs[itemStat.index], 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+
+
                         </tr>
-                        <!-- Item 2 -->
-                        <tr>
-                            <td><button class="btn btn-outline-danger btn-lg">✖</button></td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" width="80" class="me-3">
-                                    <a href="#" class="text-decoration-none">HP 15 - FD0095WM, i5 1235U, 8GB, SSD 256GB, 15.6" HD, Win 11</a>
-                                </div>
+
+                        <!-- Nếu giỏ hàng trống -->
+                        <tr th:if="${#lists.isEmpty(items)}">
+                            <td colspan="5" class="text-center text-muted py-5">
+                                Giỏ hàng của bạn đang trống 😢
                             </td>
-                            <td>11.990.000 đ</td>
-                            <td>
-                                <div class="input-group" style="max-width: 150px;">
-                                    <button class="btn btn-outline-secondary btn-lg">-</button>
-                                    <input type="text" class="form-control text-center fs-5" value="1">
-                                    <button class="btn btn-outline-secondary btn-lg">+</button>
-                                </div>
-                            </td>
-                            <td>11.990.000 đ</td>
-                        </tr>
-                        <!-- Item 3 -->
-                        <tr>
-                            <td><button class="btn btn-outline-danger btn-lg">✖</button></td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" width="80" class="me-3">
-                                    <a href="#" class="text-decoration-none">Dell Vostro 3530 i5-1334U/16GB/512GB SSD/15.6"FHD/Dos/Black</a>
-                                </div>
-                            </td>
-                            <td>13.190.000 đ</td>
-                            <td>
-                                <div class="input-group" style="max-width: 150px;">
-                                    <button class="btn btn-outline-secondary btn-lg">-</button>
-                                    <input type="text" class="form-control text-center fs-5" value="1">
-                                    <button class="btn btn-outline-secondary btn-lg">+</button>
-                                </div>
-                            </td>
-                            <td>13.190.000 đ</td>
-                        </tr>
-                        <!-- Item 4 -->
-                        <tr>
-                            <td><button class="btn btn-outline-danger btn-lg">✖</button></td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="/photos/index-content/Laptop Gaming Dell G15 i5.jpg" width="80" class="me-3">
-                                    <a href="#" class="text-decoration-none">Laptop Lenovo V14 G4 IRU i3-1315U/8GB/512GB/14" FHD/Win11</a>
-                                </div>
-                            </td>
-                            <td>14.090.000 đ</td>
-                            <td>
-                                <div class="input-group" style="max-width: 150px;">
-                                    <button class="btn btn-outline-secondary btn-lg">-</button>
-                                    <input type="text" class="form-control text-center fs-5" value="1">
-                                    <button class="btn btn-outline-secondary btn-lg">+</button>
-                                </div>
-                            </td>
-                            <td>14.090.000 đ</td>
                         </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <!-- Mã giảm giá -->
-                <div class="d-flex justify-content-between mt-3">
-                    <div class="input-group w-50 input-group-lg">
-                        <input type="text" class="form-control" placeholder="Nhập mã giảm giá">
-                        <button class="btn btn-primary btn-lg">Áp dụng</button>
-                    </div>
-                    <button class="btn btn-outline-secondary btn-lg">Cập nhật giỏ hàng</button>
                 </div>
             </div>
 
@@ -121,24 +92,28 @@
                         <ul class="list-group list-group-flush mb-3">
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Tạm tính</span>
-                                <strong>48.460.000 đ</strong>
+                                <strong th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</strong>
                             </li>
                             <li class="list-group-item">
                                 <span>Vận chuyển</span>
-                                <p class="mb-0 small text-muted">Miễn phí giao hàng<br>Các tùy chọn vận chuyển sẽ được cập nhật trong quá trình thanh toán.</p>
+                                <p class="mb-0 small text-muted">
+                                    Miễn phí giao hàng<br>
+                                    Các tùy chọn vận chuyển sẽ được cập nhật trong quá trình thanh toán.
+                                </p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Tổng</span>
-                                <strong>48.460.000 đ</strong>
+                                <span>Tổng cộng</span>
+                                <strong th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} + ' đ'">0 đ</strong>
                             </li>
                         </ul>
-                        <button class="btn btn-warning w-100 btn-lg">Tiến hành thanh toán</button>
+                        <div class="mt-3 text-end">
+                            <a th:href="@{/don-hang}" class="btn btn-primary mt-3">Tiến hành thanh toán</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br><br><br><br><br><br>
 </section>
 </body>
 </html>

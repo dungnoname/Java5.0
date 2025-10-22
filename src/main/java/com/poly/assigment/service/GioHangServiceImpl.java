@@ -2,6 +2,9 @@ package com.poly.assigment.service;
 
 import com.poly.assigment.dao.GioHangDAO;
 import com.poly.assigment.entity.GioHang;
+import com.poly.assigment.entity.SanPham;
+import com.poly.assigment.entity.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -23,13 +26,44 @@ public class GioHangServiceImpl implements GioHangService {
         return gioHangDAO.findById(id);
     }
 
-    @Override
-    public GioHang save(GioHang gh) {
-        return gioHangDAO.save(gh);
-    }
+
 
     @Override
     public void deleteById(Integer id) {
         gioHangDAO.deleteById(id);
     }
+
+    @Override
+    public List<GioHang> getGioHangByUser(User user) {
+        return gioHangDAO.findByUser(user);
+    }
+
+    @Override
+    public GioHang findByUserAndSanPham(User user, SanPham sanPham) {
+        return gioHangDAO.findByUserAndSanPham(user, sanPham);
+    }
+
+    @Override
+    public GioHang save(GioHang gioHang) {
+        return gioHangDAO.save(gioHang);
+    }
+
+    @Override
+    public void delete(Integer maGH) {
+        gioHangDAO.deleteById(maGH);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAll() {
+        gioHangDAO.deleteAll();
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllByUser(User user) {
+        gioHangDAO.deleteAllByUser(user);
+    }
+
+
 }

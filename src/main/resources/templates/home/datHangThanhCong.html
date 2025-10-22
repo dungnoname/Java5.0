@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Đặt hàng thành công</title>
+</head>
+<body>
+<div class="text-center mt-5">
+    <h3>🎉 Đặt hàng thành công!</h3>
+    <p>Mã hóa đơn: <span th:text="${hoaDon.maHD}"></span></p>
+    <p>Ngày lập: <span th:text="${hoaDon.ngayLap}"></span></p>
+    <p>Trạng thái: <span th:text="${hoaDon.trangThaiDonHang.tenTT}"></span></p>
+    <a th:href="@{/SanPham/}" class="btn btn-primary mt-3">Tiếp tục mua sắm</a>
+</div>
+
+</body>
+</html>
