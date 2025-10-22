@@ -7,7 +7,14 @@
 <section class="bg-light py-4 container">
     <h3 class="mb-4">👤 Quản lý tài khoản</h3>
 
-    <!-- Tabs -->
+    <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${message}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <ul class="nav nav-tabs mb-3" id="accountTabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="info-tab"
@@ -22,28 +29,34 @@
     </ul>
 
     <div class="tab-content" id="accountTabsContent">
-        <!-- Thông tin tài khoản -->
         <div class="tab-pane fade show active" id="info" role="tabpanel">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Thông tin cá nhân</h5>
-                    <form>
+                    <form th:action="@{/tai-khoan/cap-nhat-thong-tin}" method="post" th:object="${user}">
+
+                        <input type="hidden" th:field="*{userId}"/>
+                        <input type="hidden" th:field="*{tenDangNhap}"/>
+                        <input type="hidden" th:field="*{matKhau}"/>
+
+                        <input type="hidden" th:field="*{role}"/>
+                        <input type="hidden" th:field="*{resetPasswordToken}"/>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Họ tên</label>
-                                <input type="text" class="form-control" placeholder="Nguyễn Văn A" value="Nguyễn Văn A">
+                                <input type="text" class="form-control" th:field="*{hoTen}">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" placeholder="email@example.com" value="vana@gmail.com">
+                                <input type="email" class="form-control" th:field="*{email}">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Số điện thoại</label>
-                                <input type="text" class="form-control" placeholder="0123 456 789" value="0987654321">
+                                <input type="text" class="form-control" th:field="*{soDienThoai}">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Địa chỉ</label>
-                                <input type="text" class="form-control" placeholder="123 Đường ABC, Quận 1, TP.HCM" value="123 Đường ABC, Quận 1, TP.HCM">
+                                <input type="text" class="form-control" th:field="*{diaChi}">
                             </div>
                         </div>
                         <div class="mt-4 text-end">
@@ -54,26 +67,25 @@
             </div>
         </div>
 
-        <!-- Đổi mật khẩu -->
         <div class="tab-pane fade" id="password" role="tabpanel">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Đổi mật khẩu</h5>
-                    <form>
+                    <form th:action="@{/tai-khoan/gui-xac-nhan-doi-mat-khau}" method="post">
                         <div class="mb-3">
                             <label class="form-label">Mật khẩu hiện tại</label>
-                            <input type="password" class="form-control" placeholder="Nhập mật khẩu hiện tại">
+                            <input type="password" class="form-control" name="oldPassword" placeholder="Nhập mật khẩu hiện tại" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Mật khẩu mới</label>
-                            <input type="password" class="form-control" placeholder="Nhập mật khẩu mới">
+                            <input type="password" class="form-control" name="newPassword" placeholder="Nhập mật khẩu mới" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Nhập lại mật khẩu mới</label>
-                            <input type="password" class="form-control" placeholder="Nhập lại mật khẩu mới">
+                            <input type="password" class="form-control" name="confirmPassword" placeholder="Nhập lại mật khẩu mới" required>
                         </div>
                         <div class="text-end">
-                            <button type="submit" class="btn btn-success">Đổi mật khẩu</button>
+                            <button type="submit" class="btn btn-success">Gửi xác nhận qua email</button>
                         </div>
                     </form>
                 </div>
