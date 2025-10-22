@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/shared/layout :: layout(~{::title}, ~{::section})}">
+<head>
+  <title>Chi tiết đơn hàng</title>
+</head>
+
+<section class="container my-5">
+  <div class="card shadow p-4">
+    <h3 class="text-center mb-4 text-primary">Chi tiết đơn hàng</h3>
+
+    <!-- Thông tin đơn hàng -->
+    <div class="mb-4">
+      <h5 class="text-secondary">Thông tin đơn hàng</h5>
+      <p><strong>Mã đơn hàng:</strong> <span th:text="${hoaDon.maHD}"></span></p>
+      <p><strong>Ngày lập:</strong> <span th:text="${#temporals.format(hoaDon.ngayLap, 'dd/MM/yyyy HH:mm')}"></span></p>
+      <p><strong>Trạng thái:</strong> <span th:text="${hoaDon.trangThaiDonHang.tenTT}"></span></p>
+    </div>
+
+    <!-- Thông tin khách hàng -->
+    <div class="mb-4">
+      <h5 class="text-secondary">Thông tin khách hàng</h5>
+      <p><strong>Họ tên:</strong> <span th:text="${hoaDon.nguoiDung.hoTen}"></span></p>
+      <p><strong>Email:</strong> <span th:text="${hoaDon.nguoiDung.email}"></span></p>
+      <p><strong>Số điện thoại:</strong> <span th:text="${hoaDon.nguoiDung.soDienThoai}"></span></p>
+    </div>
+
+    <!-- Danh sách sản phẩm -->
+    <div class="table-responsive mb-4">
+      <h5 class="text-secondary mb-3">Danh sách sản phẩm</h5>
+      <table class="table table-bordered align-middle">
+        <thead class="table-primary text-center">
+        <tr>
+          <th>STT</th>
+          <th>Tên sản phẩm</th>
+          <th>Hình ảnh</th>
+          <th>Số lượng</th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ct, iStat : ${chiTietList}">
+          <td th:text="${iStat.index + 1}"></td>
+          <td th:text="${ct.sanPham.tenSP}"></td>
+          <td class="text-center">
+            <img th:src="@{${ct.sanPham.imgUrl}}" alt="Sản phẩm"
+                 style="width: 80px; height: 80px; object-fit: cover;">
+          </td>
+          <td th:text="${ct.soLuongBan}"></td>
+          <td th:text="${#numbers.formatDecimal(ct.donGia, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></td>
+          <td th:text="${#numbers.formatDecimal(ct.soLuongBan * ct.donGia, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tổng cộng -->
+    <div class="text-end">
+      <h5><strong>Tổng tiền:</strong>
+        <span class="text-danger fw-bold"
+              th:text="${#numbers.formatDecimal(tongTien, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></span>
+      </h5>
+    </div>
+
+    <!-- Nút quay lại -->
+    <div class="text-center mt-4">
+      <a href="/don-hang" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Quay lại danh sách đơn hàng
+      </a>
+
+      <!-- Nút Đặt lại -->
+      <form th:if="${hoaDon.trangThaiDonHang.maTT == 4}"
+            th:action="@{'/don-hang/dat-lai/' + ${hoaDon.maHD}}"
+            method="post"
+            style="display:inline;">
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-arrow-repeat"></i> Đặt lại đơn hàng
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</html>
