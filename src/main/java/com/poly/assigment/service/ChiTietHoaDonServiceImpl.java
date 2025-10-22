@@ -33,13 +33,13 @@ public class ChiTietHoaDonServiceImpl implements ChiTietHoaDonService {
     public void deleteById(Integer id) {
         chiTietHoaDonDAO.deleteById(id);
     }
-<<<<<<< HEAD
-}//
-=======
-
     @Override
     public List<ChiTietHoaDon> findByHoaDon(HoaDon hoaDon) {
         return chiTietHoaDonDAO.findByHoaDon(hoaDon);
     }
-}
->>>>>>> 9e5eebe9de1efe62b6fe09e3b1691030c06bacd3
+
+}//
+
+
+
+
