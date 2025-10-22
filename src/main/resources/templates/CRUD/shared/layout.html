@@ -11,11 +11,19 @@
     <a class="navbar-brand" href="#">Hệ thống CRUD</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" th:href="@{/crud/nguoi-dung}">Người dùng</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/crud/san-pham}">Sản phẩm</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/crud/loai-hang}">Loại hàng</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/crud/don-hang}">Đơn hàng</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/crud/thong-ke}">Thống kê</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/admin/users}">Người dùng</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/admin/products}">Sản phẩm</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/crud/loai-san-pham}">Loại hàng</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/CRUD/quan-ly-don-hang}">Đơn hàng</a></li>
+          <li class="nav-item" th:if="${session.currentUser != null && session.currentUser.role.roleId == 2}">
+              <a class="nav-link" th:href="@{/crud/thong-ke}">Thống kê</a>
+          </li>
+
+          <li class="nav-item ms-3">
+              <a class="nav-link text-warning" th:href="@{/crud/login}">
+                  Đăng xuất
+              </a>
+          </li>
       </ul>
     </div>
   </div>

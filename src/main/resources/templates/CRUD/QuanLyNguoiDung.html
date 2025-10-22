@@ -152,9 +152,14 @@
                 <td th:text="${u.tenDangNhap}"></td>
                 <td th:text="${u.role != null ? u.role.roleName : 'Chưa gán'}"></td>
                 <td>
-                    <a th:href="@{/admin/users/edit/{id}(id=${u.userId})}" class="btn btn-sm btn-warning">Sửa</a>
-                    <a th:href="@{/admin/users/delete/{id}(id=${u.userId})}" class="btn btn-sm btn-danger"
-                       onclick="return confirm('Bạn chắc chắn muốn xóa người dùng này?');">Xóa</a>
+                    <div th:if="${session.currentUser.role.roleId == 2}">
+
+                        <a th:href="@{/admin/users/edit/{id}(id=${u.userId})}" class="btn btn-sm btn-warning">Sửa</a>
+
+                        <a th:if="${u.userId != session.currentUser.userId}"
+                           th:href="@{/admin/users/delete/{id}(id=${u.userId})}" class="btn btn-sm btn-danger"
+                           onclick="return confirm('Bạn chắc chắn muốn xóa người dùng này?');">Xóa</a>
+                    </div>
                 </td>
             </tr>
             </tbody>
