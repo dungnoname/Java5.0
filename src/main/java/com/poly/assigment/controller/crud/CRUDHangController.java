@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/hang") // Đặt base path cho controller này
-public class HangController {
+public class CRUDHangController {
 
     @Autowired
     private HangService hangService;
@@ -25,7 +25,7 @@ public class HangController {
         model.addAttribute("listHang", listHang);
         // Dùng một đối tượng Hang trống để phục vụ cho form thêm mới
         model.addAttribute("hang", new Hang()); // Đối tượng này sẽ được dùng cho form
-        return "CRUD/Hang/index"; // Tên file Thymeleaf: resources/templates/CRUD/Hang/index.html
+        return "CRUD/QuanLyHang"; // Tên file Thymeleaf: resources/templates/CRUD/Hang/index.html
     }
 
     // Xử lý thêm mới hoặc cập nhật hãng
@@ -48,7 +48,7 @@ public class HangController {
         }
         List<Hang> listHang = hangService.findAll(); // Lấy lại danh sách để hiển thị bảng
         model.addAttribute("listHang", listHang);
-        return "CRUD/Hang/index"; // Trả về cùng trang index
+        return "CRUD/QuanLyHang"; // Trả về cùng trang index
     }
 
 

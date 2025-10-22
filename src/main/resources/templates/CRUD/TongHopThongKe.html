@@ -25,23 +25,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>1</td>
-          <td>Điện thoại</td>
-          <td>45,000,000</td>
-          <td>5</td>
-          <td>28,000,000</td>
-          <td>18,000,000</td>
-          <td>22,500,000</td>
+        <tr th:each="item, stat : ${doanhThuLoaiHang}">
+          <td th:text="${stat.index + 1}">1</td>
+          <td th:text="${item.tenLoai}">Điện thoại</td>
+          <td th:text="${#numbers.formatCurrency(item.tongDoanhThu)}">45,000,000</td>
+          <td th:text="${item.tongSoLuong}">5</td>
+          <td th:text="${#numbers.formatCurrency(item.giaCaoNhat)}">28,000,000</td>
+          <td th:text="${#numbers.formatCurrency(item.giaThapNhat)}">18,000,000</td>
+          <td th:text="${#numbers.formatCurrency(item.giaTrungBinh)}">22,500,000</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>Laptop</td>
-          <td>30,000,000</td>
-          <td>1</td>
-          <td>30,000,000</td>
-          <td>30,000,000</td>
-          <td>30,000,000</td>
+        <tr th:if="${#lists.isEmpty(doanhThuLoaiHang)}">
+          <td colspan="7">Không có dữ liệu thống kê doanh thu theo loại hàng.</td>
         </tr>
         </tbody>
       </table>
@@ -61,19 +55,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>1</td>
-          <td>Lê Hoàng Chấn Kiệt</td>
-          <td>46,000,000</td>
-          <td>2024-01-05</td>
-          <td>2024-03-15</td>
+        <tr th:each="customer, stat : ${topKhachHangVip}">
+          <td th:text="${stat.index + 1}">1</td>
+          <td th:text="${customer.tenKhachHang}">Lê Hoàng Chấn Kiệt</td>
+          <td th:text="${#numbers.formatCurrency(customer.tongTienDaMua)}">46,000,000</td>
+          <td th:text="${#temporals.format(customer.ngayMuaDauTien, 'yyyy-MM-dd')}">2024-01-05</td>
+          <td th:text="${#temporals.format(customer.ngayMuaSauCung, 'yyyy-MM-dd')}">2024-03-15</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>Phạm Đăng Khoa</td>
-          <td>30,000,000</td>
-          <td>2024-02-01</td>
-          <td>2024-04-20</td>
+        <tr th:if="${#lists.isEmpty(topKhachHangVip)}">
+          <td colspan="5">Không có dữ liệu Top khách hàng VIP.</td>
         </tr>
         </tbody>
       </table>

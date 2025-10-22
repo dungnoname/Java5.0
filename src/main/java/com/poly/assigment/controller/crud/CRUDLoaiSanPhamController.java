@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/crud/loai-san-pham")
-public class LoaiSanPhamController {
+public class CRUDLoaiSanPhamController {
 
     @Autowired
     private LoaiSanPhamService loaiSanPhamService;
