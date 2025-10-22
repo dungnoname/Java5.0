@@ -6,7 +6,6 @@ import com.poly.assigment.entity.User;
 import com.poly.assigment.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDate;
 
 @Controller
 public class RegistrationController {
@@ -25,51 +26,68 @@ public class RegistrationController {
     @Autowired
     private RoleDAO roleDAO;
 
-
+    // ===== Hiển thị form đăng ký =====
     @GetMapping("/dang-ky")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
         return "home/dangky";
     }
 
+    // ===== Xử lý form đăng ký =====
     @PostMapping("/dang-ky")
     public String processRegistration(
             @Valid @ModelAttribute("user") User user,
             BindingResult bindingResult,
             @RequestParam("confirmMatKhau") String confirmMatKhau,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes,
+            Model model) {
 
-        // Kiểm tra xem tên đăng nhập đã tồn tại chưa
+        // ⚠️ Kiểm tra trùng tên đăng nhập
         if (userService.findByTenDangNhap(user.getTenDangNhap()).isPresent()) {
             bindingResult.rejectValue("tenDangNhap", "error.user", "Tên đăng nhập này đã tồn tại!");
         }
 
-        // Kiểm tra xem email đã tồn tại chưa
+        // ⚠️ Kiểm tra trùng email
         if (userService.findByEmail(user.getEmail()).isPresent()) {
             bindingResult.rejectValue("email", "error.user", "Email này đã được sử dụng!");
         }
 
-        // Kiểm tra mật khẩu và nhập lại mật khẩu có khớp không
+        // ⚠️ Kiểm tra khớp mật khẩu nhập lại
         if (!user.getMatKhau().equals(confirmMatKhau)) {
             bindingResult.rejectValue("matKhau", "error.user", "Mật khẩu nhập lại không khớp!");
         }
 
+        // ⚠️ Nếu có lỗi thì quay lại form
         if (bindingResult.hasErrors()) {
-            // Trả lại form đăng ký theo đường dẫn mới và hiển thị lỗi
+            model.addAttribute("user", user);
             return "home/dangky";
         }
 
-        // Bổ sung lại logic gán vai trò mặc định ---
+        // ✅ Gán giá trị mặc định cho các trường bắt buộc nhưng không có trong form
+        if (user.getNgaySinh() == null) {
+            user.setNgaySinh(LocalDate.now());
+        }
+        if (user.getGioiTinh() == null) {
+            user.setGioiTinh(true); // Mặc định là Nam
+        }
+        if (user.getSoDienThoai() == null || user.getSoDienThoai().isBlank()) {
+            user.setSoDienThoai("0123456789");
+        }
+        if (user.getDiaChi() == null || user.getDiaChi().isBlank()) {
+            user.setDiaChi("Chưa cập nhật");
+        }
+
+        // ✅ Gán vai trò mặc định (RoleId = 0)
         Role defaultRole = roleDAO.findById(0)
-                .orElseThrow(() -> new RuntimeException("Error: Default Role 'User' (ID=0) not found."));
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy Role mặc định (ID=0)!"));
         user.setRole(defaultRole);
 
-        // Lưu người dùng mới vào database
+        // ✅ Lưu user vào CSDL
         userService.save(user);
 
-        // Thêm thông báo thành công để hiển thị ở trang chủ
-        redirectAttributes.addFlashAttribute("success", "Đăng ký tài khoản thành công!");
+        // ✅ Gửi thông báo thành công
+        redirectAttributes.addFlashAttribute("success", "🎉 Đăng ký tài khoản thành công! Bạn có thể đăng nhập ngay.");
 
-        return "redirect:/";
+        return "redirect:/dang-nhap";
     }
 }
