@@ -30,4 +30,4 @@ public class ThongKeController {
 
         return "CRUD/TongHopThongKe"; // Trả về file HTML của bạn
     }
-}
+}//

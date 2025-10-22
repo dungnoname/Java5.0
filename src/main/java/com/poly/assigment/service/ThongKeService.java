@@ -8,4 +8,4 @@ import java.util.List;
 public interface ThongKeService {
     List<ThongKeDoanhThuLoaiHangDTO> getDoanhThuByLoaiSanPham();
     List<TopKhachHangVipDTO> getTop10KhachHangVip();
-}
+}//

@@ -72,4 +72,4 @@ public class CRUDLoaiSanPhamController {
         }
         return "redirect:/crud/loai-san-pham";
     }
-}
+}//

@@ -26,4 +26,4 @@ public interface UserDAO extends JpaRepository<User, Integer> {
             "GROUP BY u.userId, u.hoTen " +
             "ORDER BY SUM(cthd.soLuongBan * cthd.donGia) DESC")
     List<TopKhachHangVipDTO> getTopKhachHangVip(Pageable pageable);
-}
+}//

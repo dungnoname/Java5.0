@@ -9,4 +9,4 @@ public interface ChiTietHoaDonService {
     Optional<ChiTietHoaDon> findById(Integer id);
     ChiTietHoaDon save(ChiTietHoaDon cthd);
     void deleteById(Integer id);
-}
+}//

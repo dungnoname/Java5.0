@@ -18,4 +18,4 @@ public interface UserService {
     void updateResetPasswordToken(String token, String email) throws Exception;
     Optional<User> getByResetPasswordToken(String token);
     void updatePassword(User user, String newPassword);
-}
+}//

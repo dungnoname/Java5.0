@@ -58,4 +58,4 @@ public class CRUDHangController {
         hangService.deleteById(id);
         return "redirect:/admin/hang"; // Redirect về trang danh sách sau khi xóa
     }
-}
+}//

@@ -77,4 +77,4 @@ public class UserServiceImpl implements UserService {
         user.setResetPasswordToken(null);
         userDAO.save(user);
     }
-}
+}//

@@ -23,4 +23,4 @@ public interface ChiTietHoaDonDAO extends JpaRepository<ChiTietHoaDon, Integer> 
             "GROUP BY l.tenLoai " +
             "ORDER BY SUM(cthd.soLuongBan * cthd.donGia) DESC")
     List<ThongKeDoanhThuLoaiHangDTO> getDoanhThuByLoaiSanPham();
-}
+}//
