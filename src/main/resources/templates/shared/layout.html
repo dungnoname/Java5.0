@@ -103,9 +103,11 @@
             </ul>
 
             <!-- Bên phải -->
+            <!-- Bên phải -->
             <ul class="navbar-nav ms-auto align-items-center">
-                <!-- Giỏ hàng có icon -->
-                <li class="nav-item dropdown cart-dropdown me-3">
+
+                <!-- Nếu đã đăng nhập -->
+                <li class="nav-item dropdown cart-dropdown me-3" th:if="${session.currentUser != null}">
                     <a href="#" class="nav-link position-relative">
                         <i class="bi bi-cart3 fs-4"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
@@ -130,8 +132,7 @@
                                 </div>
 
                                 <div class="fw-bold text-danger mt-1"
-                                     th:text="${#numbers.formatDecimal(item.sanPham.donGiaBan.multiply(T(java.math.BigDecimal).valueOf(item.soLuong.longValue())), 0, 'COMMA', 0, 'POINT')}
- + ' đ'">
+                                     th:text="${#numbers.formatDecimal(item.sanPham.donGiaBan.multiply(T(java.math.BigDecimal).valueOf(item.soLuong.longValue())), 0, 'COMMA', 0, 'POINT') + ' đ'}">
                                     0 đ
                                 </div>
                             </div>
@@ -147,14 +148,26 @@
                     </div>
                 </li>
 
-                <!-- Đăng nhập / Đăng ký -->
-                <li class="nav-item">
+                <!-- Nếu chưa đăng nhập -->
+                <li class="nav-item" th:if="${session.currentUser == null}">
                     <a class="nav-link" th:href="@{/dang-nhap}">Đăng nhập</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" th:if="${session.currentUser == null}">
                     <a class="nav-link" th:href="@{/dang-ky}">Đăng ký</a>
                 </li>
+
+                <!-- Nếu đã đăng nhập, hiển thị tên và logout -->
+                <li class="nav-item dropdown" th:if="${session.currentUser != null}">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <span th:text="${session.currentUser.hoTen}">User</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" th:href="@{/dang-xuat}">Đăng xuất</a></li>
+                    </ul>
+                </li>
+
             </ul>
+
         </div>
     </div>
 </nav>

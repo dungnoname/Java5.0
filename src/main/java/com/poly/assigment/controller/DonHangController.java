@@ -27,24 +27,14 @@ public class DonHangController {
     private GioHangService gioHangService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserSessionUtil userSessionUtil;
-
-    // ✅ Lấy user hiện tại (tạm thời là user id = 1 nếu chưa đăng nhập)
-    private User getCurrentUser(HttpSession session) {
-        User user = (User) session.getAttribute("userSession");
-        if (user == null) {
-            user = userService.findById(1)
-                    .orElseThrow(() -> new RuntimeException("Không tìm thấy user tạm thời"));
-            session.setAttribute("userSession", user);
-        }
-        return user;
-    }
 
     // ✅ GET /don-hang - hiển thị đơn hàng & giỏ hàng
     @GetMapping
     public String viewDonHang(Model model, HttpSession session) {
-        User user = getCurrentUser(session);
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap";
+        }
 
         List<GioHang> gioHangList = gioHangService.getGioHangByUser(user);
 
@@ -65,10 +55,14 @@ public class DonHangController {
         return "home/donHang";
     }
 
-    // ✅ POST /don-hang/xac-nhan - xác nhận đặt hàng (trạng thái: Chờ xác nhận)
+    // ✅ POST /don-hang/xac-nhan
     @PostMapping("/xac-nhan")
     public String xacNhanDonHang(Model model, HttpSession session) {
-        User user = getCurrentUser(session);
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap";
+        }
+
         List<GioHang> gioHangList = gioHangService.getGioHangByUser(user);
 
         if (gioHangList.isEmpty()) {
@@ -81,7 +75,7 @@ public class DonHangController {
         HoaDon hoaDon = new HoaDon();
         hoaDon.setNguoiDung(user);
         hoaDon.setNgayLap(LocalDateTime.now());
-        hoaDon.setTrangThaiDonHang(trangThaiDonHangService.findById(0).orElse(null)); // 👉 Chờ xác nhận
+        hoaDon.setTrangThaiDonHang(trangThaiDonHangService.findById(0).orElse(null)); // Chờ xác nhận
 
         HoaDon savedHoaDon = hoaDonService.save(hoaDon);
 
@@ -101,24 +95,23 @@ public class DonHangController {
         return "home/datHangThanhCong";
     }
 
-    // ✅ POST /don-hang/huy/{id} - người dùng hủy đơn (chỉ khi đang chờ xác nhận)
+    // ✅ POST /don-hang/huy/{id}
     @PostMapping("/huy/{id}")
-    public String huyDonHang(@PathVariable("id") Integer id, HttpSession session, Model model) {
-        User user = getCurrentUser(session);
+    public String huyDonHang(@PathVariable("id") Integer id, HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap";
+        }
+
         HoaDon hoaDon = hoaDonService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng"));
 
-        if (!hoaDon.getNguoiDung().getUserId().equals(user.getUserId())) {
-            model.addAttribute("error", "Bạn không có quyền hủy đơn hàng này!");
+        if (!hoaDon.getNguoiDung().getUserId().equals(user.getUserId()) ||
+                hoaDon.getTrangThaiDonHang().getMaTT() != 0) {
             return "redirect:/don-hang";
         }
 
-        if (hoaDon.getTrangThaiDonHang().getMaTT() != 0) {
-            model.addAttribute("error", "Đơn hàng này không thể hủy!");
-            return "redirect:/don-hang";
-        }
-
-        hoaDon.setTrangThaiDonHang(trangThaiDonHangService.findById(4).orElse(null)); // 👉 Hủy
+        hoaDon.setTrangThaiDonHang(trangThaiDonHangService.findById(4).orElse(null)); // Hủy
         hoaDonService.save(hoaDon);
 
         return "redirect:/don-hang";
@@ -127,13 +120,16 @@ public class DonHangController {
     // ✅ GET /don-hang/chi-tiet/{id}
     @GetMapping("/chi-tiet/{id}")
     public String chiTietDonHang(@PathVariable("id") Integer id, Model model, HttpSession session) {
-        User user = getCurrentUser(session);
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap";
+        }
+
         HoaDon hoaDon = hoaDonService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy hóa đơn"));
 
         if (!hoaDon.getNguoiDung().getUserId().equals(user.getUserId())) {
-            model.addAttribute("error", "Bạn không có quyền xem đơn hàng này!");
-            return "home/donHang";
+            return "redirect:/don-hang";
         }
 
         List<ChiTietHoaDon> chiTietList = chiTietHoaDonService.findByHoaDon(hoaDon);
@@ -147,30 +143,27 @@ public class DonHangController {
         return "home/chiTietDonHang";
     }
 
+    // ✅ POST /don-hang/dat-lai/{id}
     @PostMapping("/dat-lai/{id}")
-    public String datLaiDonHang(@PathVariable("id") Integer id, HttpSession session, Model model) {
-        User user = getCurrentUser(session);
+    public String datLaiDonHang(@PathVariable("id") Integer id, HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap";
+        }
+
         HoaDon hoaDon = hoaDonService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng"));
 
-        // Kiểm tra quyền sở hữu
-        if (!hoaDon.getNguoiDung().getUserId().equals(user.getUserId())) {
-            model.addAttribute("error", "Bạn không có quyền thao tác đơn hàng này!");
+        if (!hoaDon.getNguoiDung().getUserId().equals(user.getUserId()) ||
+                hoaDon.getTrangThaiDonHang().getMaTT() != 4) {
             return "redirect:/don-hang";
         }
 
-        // Chỉ cho phép đặt lại nếu đơn hàng đã hủy
-        if (hoaDon.getTrangThaiDonHang().getMaTT() != 4) {
-            model.addAttribute("error", "Chỉ có thể đặt lại đơn hàng đã bị hủy!");
-            return "redirect:/don-hang";
-        }
-
-        // Cập nhật trạng thái lại thành "Chờ xác nhận"
         hoaDon.setTrangThaiDonHang(trangThaiDonHangService.findById(0).orElse(null));
-        hoaDon.setNgayLap(LocalDateTime.now()); // cập nhật lại thời gian đặt
+        hoaDon.setNgayLap(LocalDateTime.now());
         hoaDonService.save(hoaDon);
 
-        model.addAttribute("message", "Đơn hàng đã được đặt lại và đang chờ xác nhận.");
         return "redirect:/don-hang/chi-tiet/" + id;
     }
 }
+

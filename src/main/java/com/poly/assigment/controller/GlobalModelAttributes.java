@@ -19,13 +19,17 @@ public class GlobalModelAttributes {
 
     private final GioHangService gioHangService;
 
-    
-
     @ModelAttribute
     public void addGlobalCartInfo(Model model, HttpSession session) {
-        // Lấy user tạm
-        User user = (User) session.getAttribute("userSession");
-        if (user == null) return;
+        // Lấy user hiện tại từ session
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            // Nếu chưa đăng nhập, không hiển thị giỏ hàng mini
+            model.addAttribute("cartItems", new ArrayList<>());
+            model.addAttribute("cartCount", 0);
+            model.addAttribute("cartTotal", BigDecimal.ZERO);
+            return;
+        }
 
         // Lấy giỏ hàng thật từ DB
         List<GioHang> cart = gioHangService.getGioHangByUser(user);

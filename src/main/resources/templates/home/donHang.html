@@ -28,13 +28,13 @@
                             <div class="mb-3">
                                 <label class="form-label">Họ tên</label>
                                 <input type="text" class="form-control"
-                                       th:value="${session.userSession != null ? session.userSession.hoTen : 'Khách hàng tạm thời'}"
+                                       th:value="${session.currentUser != null ? session.currentUser.hoTen : 'Khách hàng tạm thời'}"
                                        readonly>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Số điện thoại</label>
                                 <input type="text" class="form-control"
-                                       th:value="${session.userSession != null ? session.userSession.soDienThoai : 'Chưa có số điện thoại'}"
+                                       th:value="${session.currentUser != null ? session.currentUser.soDienThoai : 'Chưa có số điện thoại'}"
                                        readonly>
 
 

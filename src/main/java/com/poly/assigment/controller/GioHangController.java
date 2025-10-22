@@ -26,25 +26,9 @@ public class GioHangController {
     private GioHangService gioHangService;
 
     @Autowired
-    private UserDAO userDAO;
-
-    @Autowired
     private SanPhamDAO spDAO;
 
-
-
-    // ✅ User tạm thời (vì chưa có đăng nhập)
-    private User getTempUser(HttpSession session) {
-        User user = (User) session.getAttribute("userSession");
-        if (user == null) {
-            user = userDAO.findById(1)
-                    .orElseThrow(() -> new RuntimeException("Không tìm thấy user tạm thời"));
-            session.setAttribute("userSession", user);
-        }
-        return user;
-    }
-
-    // ✅ Lấy giỏ hàng từ DB mỗi lần vào trang (đảm bảo dữ liệu thật)
+    // ✅ Lấy giỏ hàng từ DB
     private List<GioHang> getCart(User user) {
         return new ArrayList<>(gioHangService.getGioHangByUser(user));
     }
@@ -52,11 +36,14 @@ public class GioHangController {
     // ✅ Trang giỏ hàng
     @GetMapping
     public String viewCart(Model model, HttpSession session) {
-        User user = getTempUser(session);
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap"; // chưa đăng nhập → chuyển đến login
+        }
+
         List<GioHang> cart = getCart(user);
         session.setAttribute("sessionCart", cart);
 
-        // Danh sách tạm tính cho từng sản phẩm
         List<BigDecimal> tamTinhs = new ArrayList<>();
         BigDecimal total = BigDecimal.ZERO;
 
@@ -79,7 +66,12 @@ public class GioHangController {
                             @RequestParam("soLuong") Integer soLuong,
                             @RequestParam(value = "redirectUrl", required = false) String redirectUrl,
                             HttpSession session) {
-        User user = getTempUser(session);
+
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap"; // chưa đăng nhập → login
+        }
+
         SanPham sp = spDAO.findById(maSP)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
 
@@ -98,7 +90,6 @@ public class GioHangController {
             gioHangService.save(gh);
         }
 
-        // Nếu không có redirectUrl thì mặc định về danh mục
         if (redirectUrl == null || redirectUrl.isEmpty()) {
             redirectUrl = "/SanPham/";
         }
@@ -110,7 +101,12 @@ public class GioHangController {
     public String updateQuantity(@PathVariable("maSP") Integer maSP,
                                  @RequestParam("soLuong") Integer soLuong,
                                  HttpSession session) {
-        User user = getTempUser(session);
+
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap";
+        }
+
         SanPham sp = spDAO.findById(maSP)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
 
@@ -127,7 +123,11 @@ public class GioHangController {
     // ✅ Xóa sản phẩm
     @GetMapping("/remove/{maSP}")
     public String removeItem(@PathVariable("maSP") Integer maSP, HttpSession session) {
-        User user = getTempUser(session);
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/dang-nhap";
+        }
+
         SanPham sp = spDAO.findById(maSP)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
 
