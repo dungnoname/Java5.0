@@ -4,7 +4,10 @@ import com.poly.assignment.entity.SanPham;
 import com.poly.assignment.service.SanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import com.poly.assignment.service.LoaiSanPhamService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,6 +20,9 @@ public class ProductRestController {
 
     @Autowired
     private SanPhamService sanPhamService;
+
+    @Autowired
+    private LoaiSanPhamService loaiSanPhamService;
 
     // 1. Lấy toàn bộ sản phẩm
     @GetMapping("")
@@ -47,5 +53,21 @@ public class ProductRestController {
         // Lưu ý: Bạn cần đảm bảo sanPhamService.findByLoaiVaGia đã được viết đúng
         List<SanPham> list = sanPhamService.findByLoaiVaGia(maLoai, minPrice, maxPrice);
         return ResponseEntity.ok(list);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')") // <--- 2. GẮN LUẬT Ở ĐÂY
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer id) {
+        try {
+            sanPhamService.deleteById(id); // Giả sử service có hàm delete
+            return ResponseEntity.ok("Đã xóa sản phẩm thành công!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Lỗi khi xóa: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<?> getAllCategories() {
+        return ResponseEntity.ok(loaiSanPhamService.findAll());
     }
 }

@@ -65,9 +65,12 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // Bật CORS mặc định
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Không lưu Session
                 .authorizeHttpRequests(auth -> auth
-                        // Cho phép truy cập công khai Login và các file tĩnh (nếu có)
+                        // Cho phép truy cập công khai Login và các file tĩnh
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 );
 
