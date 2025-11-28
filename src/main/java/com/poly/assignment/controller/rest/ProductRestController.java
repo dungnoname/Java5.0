@@ -1,4 +1,4 @@
-package com.poly.assignment.controller;
+package com.poly.assignment.controller.rest;
 
 import com.poly.assignment.entity.SanPham;
 import com.poly.assignment.service.SanPhamService;

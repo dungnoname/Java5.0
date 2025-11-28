@@ -1,4 +1,4 @@
-package com.poly.assignment.controller;
+package com.poly.assignment.controller.page;
 
 import com.poly.assignment.entity.User;
 import com.poly.assignment.service.UserService;

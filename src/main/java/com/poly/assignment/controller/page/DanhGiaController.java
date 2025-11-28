@@ -1,4 +1,4 @@
-package com.poly.assignment.controller;
+package com.poly.assignment.controller.page;
 
 import com.poly.assignment.entity.*;
 import com.poly.assignment.service.ChiTietHoaDonService;
