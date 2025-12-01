@@ -10,7 +10,7 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtUtils {
+public class JwtService {
 
     // KHÓA BÍ MẬT (Nên để phức tạp và giấu trong file properties)
     private static final String SECRET_KEY = "DayLaKhoaBiMatCuaDuAnBanDienTuJava6PhaiDuDaiDeBaoMatTren32KyTu";

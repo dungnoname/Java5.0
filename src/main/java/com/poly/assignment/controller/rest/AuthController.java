@@ -4,7 +4,7 @@ import com.poly.assignment.dao.RoleDAO;
 import com.poly.assignment.dao.UserDAO;
 import com.poly.assignment.entity.Role;
 import com.poly.assignment.entity.User;
-import com.poly.assignment.security.JwtUtils;
+import com.poly.assignment.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +46,7 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    JwtUtils jwtUtils;
+    JwtService jwtUtils;
 
     // Class phụ để nhận dữ liệu từ Vue gửi lên (Thay cho @RequestParam)
     public static class LoginRequest {
