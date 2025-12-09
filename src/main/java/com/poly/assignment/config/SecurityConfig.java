@@ -67,10 +67,30 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Cho phép truy cập công khai Login và các file tĩnh
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
 
+                        // chỉ được xem
+                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/products/categories").permitAll()
+
+                        //chỉ admin mới có thể sửa
+                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")
+
+                        //trang quản trị dành cho admin
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
+                        // Giỏ hàng (Xem, Thêm, Xóa, Sửa)
+                        .requestMatchers("/api/cart/**").authenticated()
+
+                        // Đơn hàng (Đặt hàng, Xem lịch sử, Hủy đơn)
+                        .requestMatchers("/api/orders/**").authenticated()
+
+                        // Thông tin cá nhân (Xem profile, Đổi mật khẩu)
+                        .requestMatchers("/api/profile/**").authenticated()
+
+
+                        // Những đường dẫn lạ nào chưa khai báo ở trên thì mặc định phải đăng nhập mới được vào
                         .anyRequest().authenticated()
                 );
 

@@ -1,9 +1,12 @@
 package com.poly.assignment.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -40,6 +43,10 @@ public class SanPham {
     @ManyToOne
     @JoinColumn(name = "maHang")
     private Hang hang;
+
+    @Column(name = "NgayTao")
+    @JsonFormat(pattern = "dd/MM/yyyy") // Khi trả về JSON sẽ có dạng "27/10/2025"
+    private LocalDate ngayTao;
 
     @OneToMany(mappedBy = "sanPham")
     @JsonIgnore

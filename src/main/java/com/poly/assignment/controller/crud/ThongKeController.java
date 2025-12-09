@@ -1,4 +1,4 @@
-package com.poly.assignment.controller.admin;
+package com.poly.assignment.controller.crud;
 
 import com.poly.assignment.dto.ThongKeDoanhThuLoaiHangDTO;
 import com.poly.assignment.dto.TopKhachHangVipDTO;
