@@ -1,6 +1,7 @@
 package com.poly.assignment.service;
 
 import com.poly.assignment.dao.ChiTietHoaDonDAO;
+import com.poly.assignment.dao.ThongKeDAO;
 import com.poly.assignment.dao.UserDAO;
 import com.poly.assignment.dto.ThongKeDoanhThuLoaiHangDTO;
 import com.poly.assignment.dto.TopKhachHangVipDTO;
@@ -14,19 +15,13 @@ import java.util.List;
 public class ThongKeServiceImpl implements ThongKeService {
 
     @Autowired
-    private ChiTietHoaDonDAO chiTietHoaDonDAO;
+    private ThongKeDAO thongKeDAO;
 
-    @Autowired
-    private UserDAO userDAO;
-
-    @Override
     public List<ThongKeDoanhThuLoaiHangDTO> getDoanhThuByLoaiSanPham() {
-        return chiTietHoaDonDAO.getDoanhThuByLoaiSanPham();
+        return thongKeDAO.getDoanhThuTheoLoai();
     }
 
-    @Override
     public List<TopKhachHangVipDTO> getTop10KhachHangVip() {
-        // Sử dụng PageRequest để lấy Top 10
-        return userDAO.getTopKhachHangVip(PageRequest.of(0, 10));
+        return thongKeDAO.getTopKhachHang();
     }
 }//

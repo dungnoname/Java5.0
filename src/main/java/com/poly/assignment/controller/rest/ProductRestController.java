@@ -3,6 +3,9 @@ package com.poly.assignment.controller.rest;
 import com.poly.assignment.entity.SanPham;
 import com.poly.assignment.service.SanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -69,5 +72,29 @@ public class ProductRestController {
     @GetMapping("/categories")
     public ResponseEntity<?> getAllCategories() {
         return ResponseEntity.ok(loaiSanPhamService.findAll());
+    }
+
+    @GetMapping("/category/{maLoai}/top")
+    public ResponseEntity<?> getTopProductsByCategory(
+            @PathVariable Integer maLoai,
+            @RequestParam(defaultValue = "8") int limit // Mặc định lấy 8 cái
+    ) {
+        // Tạo Pageable để lấy 'limit' sản phẩm, sắp xếp theo ngày nhập mới nhất
+        Pageable pageable = PageRequest.of(0, limit, Sort.by("ngayTao").descending());
+
+        List<SanPham> list = sanPhamService.findAllByLoaiSanPham_MaLoai(maLoai, pageable).getContent();
+
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/category/{maLoai}/brand/{maHang}/top")
+    public ResponseEntity<?> getTopProductsByCategoryAndBrand(
+            @PathVariable Integer maLoai,
+            @PathVariable Integer maHang,
+            @RequestParam(defaultValue = "4") int limit
+    ) {
+        Pageable pageable = PageRequest.of(0, limit, Sort.by("ngayTao").descending());
+        List<SanPham> list = sanPhamService.findByLoaiSanPham_MaLoaiAndHang_MaHang(maLoai, maHang, pageable).getContent();
+        return ResponseEntity.ok(list);
     }
 }

@@ -48,6 +48,9 @@ public class AuthController {
     @Autowired
     JwtService jwtUtils;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     // Class phụ để nhận dữ liệu từ Vue gửi lên (Thay cho @RequestParam)
     public static class LoginRequest {
         public String username;
@@ -123,7 +126,8 @@ public class AuthController {
         // 4. Tạo User mới
         User user = new User();
         user.setTenDangNhap(req.username);
-        user.setMatKhau(req.password); // Sau này nhớ mã hóa
+//        user.setMatKhau(req.password); // Sau này nhớ mã hóa
+        user.setMatKhau(passwordEncoder.encode(req.password));
         user.setHoTen(req.fullname);
         user.setEmail(req.email);
 
@@ -151,8 +155,7 @@ public class AuthController {
     @Autowired
     EmailService emailService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+
 
     // Chỉ cần nhận Email là đủ để tìm user và gửi mail
     public static class ForgotPasswordRequest {

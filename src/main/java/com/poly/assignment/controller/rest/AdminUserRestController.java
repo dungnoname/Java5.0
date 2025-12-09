@@ -12,10 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin/users")
@@ -28,6 +33,9 @@ public class AdminUserRestController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // 1. Lấy danh sách User (Có phân trang)
     @GetMapping
@@ -79,6 +87,8 @@ public class AdminUserRestController {
             }
 
             // TODO: Mã hóa mật khẩu ở đây nếu cần: user.setMatKhau(encoder.encode(user.getMatKhau()));
+            String encodedPass = passwordEncoder.encode(user.getMatKhau());
+            user.setMatKhau(encodedPass);
 
             User savedUser = userService.save(user);
             return ResponseEntity.ok(savedUser);
@@ -118,7 +128,8 @@ public class AdminUserRestController {
             // Xử lý mật khẩu: Nếu Vue gửi mật khẩu rỗng -> Giữ nguyên mật khẩu cũ
             if (user.getMatKhau() != null && !user.getMatKhau().isEmpty()) {
                 // TODO: existingUser.setMatKhau(encoder.encode(user.getMatKhau()));
-                existingUser.setMatKhau(user.getMatKhau());
+                String encodedPass = passwordEncoder.encode(user.getMatKhau());
+                existingUser.setMatKhau(encodedPass);
             }
             // Nếu user.getMatKhau() rỗng thì không làm gì -> Giữ pass cũ
 
