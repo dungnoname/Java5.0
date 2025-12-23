@@ -98,7 +98,8 @@
                 <tr>
                   <th>Mã đơn</th>
                   <th>Ngày đặt</th>
-                  <th>Tổng tiền</th> <th>Trạng thái</th>
+                  <th>Tổng tiền</th> 
+                  <th>Trạng thái</th>
                   <th>Hành động</th>
                 </tr>
               </thead>
@@ -107,7 +108,7 @@
                   <td class="fw-bold text-primary">#HD{{ hd.maHD }}</td>
                   <td>{{ formatDate(hd.ngayLap) }}</td>
                   
-                  <td>---</td> 
+                  <td>{{ formatCurrency(calculateOrderTotal(hd)) }}</td> 
 
                   <td>
                     <span class="badge" :class="getStatusBadge(hd.trangThaiDonHang?.maTT)">
@@ -126,10 +127,13 @@
                       Hủy
                     </button>
 
-                    <button v-if="hd.trangThaiDonHang?.maTT === 3"
-                            class="btn btn-outline-success btn-sm">
-                      Đánh giá
-                    </button>
+                    <router-link 
+                      v-if="hd.trangThaiDonHang?.maTT === 3"
+                      :to="'/order/review/' + hd.maHD" 
+                      class="btn btn-outline-success btn-sm"
+                    >
+                      <i class="bi bi-star"></i> Đánh giá
+                  </router-link>
                   </td>
                 </tr>
               </tbody>
@@ -245,6 +249,19 @@ const cancelOrder = async (id) => {
 };
 
 // --- HELPERS ---
+const calculateOrderTotal = (order) => {
+  // Nếu đơn hàng không có chi tiết hoặc danh sách rỗng thì trả về 0
+  if (!order.chiTietHoaDonList || order.chiTietHoaDonList.length === 0) {
+    return 0; 
+  }
+  
+  // Cộng dồn: Số lượng * Đơn giá
+  return order.chiTietHoaDonList.reduce((sum, item) => {
+    return sum + (item.soLuongBan * item.donGia);
+  }, 0);
+};
+
+
 const formatCurrency = (val) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val);
 
 const formatDate = (dateStr) => {

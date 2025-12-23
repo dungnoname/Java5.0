@@ -101,7 +101,7 @@ const checkLoginStatus = () => {
       try {
         const roles = JSON.parse(userRolesString);
         // Kiểm tra xem mảng role có chứa 'ROLE_ADMIN' không
-        isAdmin.value = roles.includes('ROLE_ADMIN');
+        isAdmin.value = roles.includes('ROLE_ADMIN') || roles.includes('ROLE_STAFF');
       } catch (e) {
         console.error("Lỗi đọc quyền user:", e);
         isAdmin.value = false;
@@ -223,5 +223,10 @@ onUnmounted(() => {
 
 .cart-footer {
   margin-top: 10px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0; /* Tinh chỉnh khoảng cách nếu cần */
 }
 </style>

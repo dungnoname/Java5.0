@@ -189,12 +189,7 @@ const fetchProduct = async () => {
     const res = await axios.get(`http://localhost:8080/api/products/${id}`);
     product.value = res.data;
     
-    // ⚠️ LƯU Ý QUAN TRỌNG:
-    // Vì bên Backend (Entity SanPham) chúng ta đã thêm @JsonIgnore vào danhGiaList
-    // Nên API trên sẽ KHÔNG trả về đánh giá.
-    // Tạm thời tôi để reviews = [] (trống).
-    // Nếu bạn muốn hiện đánh giá, bạn cần viết thêm 1 API: /api/reviews/product/{id} bên Backend.
-    reviews.value = []; 
+    
 
   } catch (error) {
     console.error("Lỗi tải sản phẩm:", error);
@@ -202,6 +197,18 @@ const fetchProduct = async () => {
     loading.value = false;
   }
 };
+
+const fetchReviews = async () => {
+      try {
+        const id = route.params.id;
+        // Gọi API Backend vừa viết
+        const res = await axios.get(`http://localhost:8080/api/reviews/product/${id}`);
+        reviews.value = res.data;
+      } catch (error) {
+        console.error("Lỗi lấy đánh giá:", error);
+        reviews.value = [];
+      }
+    };
 
 // 2. Thêm vào giỏ hàng
 const addToCart = async () => {
@@ -243,6 +250,8 @@ const formatDate = (dateString) => {
 // --- INIT ---
 onMounted(() => {
   fetchProduct();
+
+  fetchReviews();
 });
 </script>
 

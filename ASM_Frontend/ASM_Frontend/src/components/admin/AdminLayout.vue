@@ -23,7 +23,7 @@
               <router-link class="nav-link" to="/admin/orders">Đơn hàng</router-link>
             </li>
             
-            <li class="nav-item">
+            <li class="nav-item" v-if="isAdmin">
               <router-link class="nav-link" to="/admin/stats">Thống kê</router-link>
             </li>
 
@@ -50,9 +50,30 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'; // Nhớ import ref và onMounted
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const isAdmin = ref(false); // Biến trạng thái kiểm tra quyền
+
+// Hàm kiểm tra quyền khi load trang
+const checkAdminRole = () => {
+  const rolesString = localStorage.getItem('user_role');
+  if (rolesString) {
+    try {
+      // LocalStorage lưu mảng dạng chuỗi: '["ROLE_STAFF", "ROLE_ADMIN"]'
+      const roles = JSON.parse(rolesString);
+      
+      // Kiểm tra xem mảng có chứa ROLE_ADMIN không
+      if (Array.isArray(roles) && roles.includes('ROLE_ADMIN')) {
+        isAdmin.value = true;
+      }
+    } catch (e) {
+      console.error("Lỗi đọc quyền:", e);
+      isAdmin.value = false;
+    }
+  }
+};
 
 const handleLogout = () => {
   localStorage.removeItem('jwt_token');
@@ -60,4 +81,9 @@ const handleLogout = () => {
   localStorage.removeItem('user_role');
   window.location.href = '/login';
 };
+
+// Chạy kiểm tra ngay khi component được gắn vào DOM
+onMounted(() => {
+  checkAdminRole();
+});
 </script>

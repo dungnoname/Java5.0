@@ -1,18 +1,26 @@
+<script setup>
+</script>
+
 <template>
-  <router-view></router-view>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
-<script>
-export default {
-  name: 'App'
-}
+<script setup>
+// Không cần import Header/Footer ở đây nữa
 </script>
 
 <style>
-/* CSS Reset cơ bản cho toàn app */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f8f9fa;
+/* Định dạng để Footer luôn nằm dưới cùng */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Chiều cao bằng màn hình */
+}
+
+.main-content {
+  flex: 1; /* Chiếm hết khoảng trống còn lại */
+  padding-bottom: 20px;
 }
 </style>
