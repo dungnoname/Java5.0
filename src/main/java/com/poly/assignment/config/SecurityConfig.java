@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -37,9 +38,14 @@ public class SecurityConfig {
     // 1. Cấu hình Password Encoder
     // LƯU Ý: Dùng NoOp vì DB của bạn đang lưu pass là "123" (chưa mã hóa).
     // Khi nào chạy xong, bạn hãy đổi sang BCryptPasswordEncoder sau.
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return NoOpPasswordEncoder.getInstance();
+//    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     // 2. Cấu hình AuthenticationManager
@@ -72,23 +78,26 @@ public class SecurityConfig {
                         // chỉ được xem
                         .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/products/categories").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/reviews/product/**").permitAll()
 
-                        //chỉ admin mới có thể sửa
-                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasRole("ADMIN")
+                        //trang thống kê chỉ admin lớn mới có quyền xem
+                        .requestMatchers("/api/admin/statistics/**").hasRole("ADMIN")
 
-                        //trang quản trị dành cho admin
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        //chỉ admin và staff mới có thể CUD
+                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasAnyRole("ADMIN", "STAFF")
+                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole("ADMIN", "STAFF")
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole("ADMIN", "STAFF")
+
+                        //chỉ có thống kê là bị chặn
+                        .requestMatchers("/api/admin/**").hasAnyRole("ADMIN", "STAFF")
+
+
 
                         // Giỏ hàng (Xem, Thêm, Xóa, Sửa)
                         .requestMatchers("/api/cart/**").authenticated()
-
-                        // Đơn hàng (Đặt hàng, Xem lịch sử, Hủy đơn)
                         .requestMatchers("/api/orders/**").authenticated()
-
-                        // Thông tin cá nhân (Xem profile, Đổi mật khẩu)
                         .requestMatchers("/api/profile/**").authenticated()
+                        .requestMatchers("/api/reviews/submit/**").authenticated()
 
 
                         // Những đường dẫn lạ nào chưa khai báo ở trên thì mặc định phải đăng nhập mới được vào

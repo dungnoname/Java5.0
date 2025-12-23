@@ -1,6 +1,7 @@
 package com.poly.assignment.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -30,7 +31,7 @@ public class HoaDon {
     @JoinColumn(name = "maTT")
     private TrangThaiDonHang trangThaiDonHang;
 
-    @OneToMany(mappedBy = "hoaDon")
-    @JsonIgnore
+    @OneToMany(mappedBy = "hoaDon", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<ChiTietHoaDon> chiTietHoaDonList;
 }

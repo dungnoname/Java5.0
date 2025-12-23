@@ -1,5 +1,6 @@
 package com.poly.assignment.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ public class ChiTietHoaDon {
 
     @ManyToOne
     @JoinColumn(name = "maHD")
+    @JsonBackReference
     private HoaDon hoaDon;
 
     @ManyToOne

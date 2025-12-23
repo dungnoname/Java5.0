@@ -26,8 +26,12 @@ public class AdminStatisticsRestController {
     // URL: GET /api/admin/statistics/revenue-by-category
     @GetMapping("/revenue-by-category")
     public ResponseEntity<?> getRevenueByCategory() {
-        List<ThongKeDoanhThuLoaiHangDTO> data = thongKeService.getDoanhThuByLoaiSanPham();
-        return ResponseEntity.ok(data);
+        try {
+            return ResponseEntity.ok(thongKeService.getDoanhThuByLoaiSanPham());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Lỗi Server: " + e.getMessage());
+        }
     }
 
     // 2. API Top 10 Khách hàng VIP (Dùng để hiển thị bảng)

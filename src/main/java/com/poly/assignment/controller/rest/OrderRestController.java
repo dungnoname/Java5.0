@@ -109,7 +109,7 @@ public class OrderRestController {
 
         // Bạn có thể tạo DTO để trả về cả Info Hóa Đơn + List Chi Tiết
         // Hoặc trả về List chi tiết thôi tùy Frontend cần gì
-        return ResponseEntity.ok(details);
+        return ResponseEntity.ok(order);
     }
 
     // 4. HỦY ĐƠN HÀNG

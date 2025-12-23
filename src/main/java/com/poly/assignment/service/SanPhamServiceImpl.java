@@ -4,6 +4,8 @@ import com.poly.assignment.dao.SanPhamDAO;
 import com.poly.assignment.entity.HoaDon;
 import com.poly.assignment.entity.SanPham;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -49,5 +51,15 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public List<SanPham> findByHoaDon(HoaDon hoaDon) {
         return sanPhamDAO.findByChiTietHoaDonList_HoaDon(hoaDon);
+    }
+
+    @Override
+    public Page<SanPham> findAllByLoaiSanPham_MaLoai(Integer maLoai, Pageable pageable){
+        return sanPhamDAO.findAllByLoaiSanPham_MaLoai(maLoai, pageable);
+    }
+
+    @Override
+    public Page<SanPham> findByLoaiSanPham_MaLoaiAndHang_MaHang(Integer maLoai, Integer maHang, Pageable pageable){
+        return sanPhamDAO.findByLoaiSanPham_MaLoaiAndHang_MaHang(maLoai, maHang, pageable);
     }
 }
