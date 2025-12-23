@@ -3,58 +3,65 @@ package com.poly.assignment.controller.page;
 import com.poly.assignment.entity.SanPham;
 import com.poly.assignment.service.SanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-@Controller
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "*") // Cho phép Vue gọi API thoải mái
 public class HomeController {
 
     @Autowired
     private SanPhamService sanPhamService;
 
-    @RequestMapping("/")
-    public String home(Model model) {
-
-        // Lấy tất cả sản phẩm
+    // API 1: Lấy dữ liệu trang chủ (Lọc theo 3 loại)
+    @GetMapping("/home")
+    public Map<String, List<SanPham>> getHomeData() {
         List<SanPham> allProducts = sanPhamService.findAll();
+        Map<String, List<SanPham>> response = new HashMap<>();
 
-        // Tính giá gốc cho từng sản phẩm (tạm thời)
-        allProducts.forEach(sp -> {
-            double donGiaBan = sp.getDonGiaBan().doubleValue();
-            double donGiaGoc = donGiaBan * 1.2;
-            sp.setMoTa("donGiaGoc:" + donGiaGoc); // lưu tạm vào mô tả
-        });
-
-        // Nhóm sản phẩm
-        List<SanPham> spMoi = allProducts.stream().limit(4).toList();
-        List<SanPham> laptopGaming = allProducts.stream()
-                .filter(sp -> sp.getLoaiSanPham().getMaLoai() == 2)
-                .limit(4)
-                .toList();
-        List<SanPham> laptopVP = allProducts.stream()
-                .filter(sp -> sp.getLoaiSanPham().getMaLoai() == 2)
-                .skip(4)
-                .limit(4)
-                .toList();
+        // 1. Lọc Bàn phím (Tìm chữ "Phím" hoặc "Key" trong tên loại)
         List<SanPham> banPhim = allProducts.stream()
-                .filter(sp -> sp.getLoaiSanPham().getMaLoai() == 3)
-                .limit(4)
-                .toList();
+                .filter(p -> p.getLoaiSanPham() != null &&
+                        (p.getLoaiSanPham().getTenLoai().toLowerCase().contains("phím") ||
+                                p.getLoaiSanPham().getTenLoai().toLowerCase().contains("key")))
+                .limit(20).collect(Collectors.toList());
+
+        // 2. Lọc Laptop
+        List<SanPham> laptop = allProducts.stream()
+                .filter(p -> p.getLoaiSanPham() != null &&
+                        p.getLoaiSanPham().getTenLoai().toLowerCase().contains("laptop"))
+                .limit(20).collect(Collectors.toList());
+
+        // 3. Lọc Chuột
         List<SanPham> chuot = allProducts.stream()
-                .filter(sp -> sp.getLoaiSanPham().getMaLoai() == 6)
-                .limit(4)
-                .toList();
+                .filter(p -> p.getLoaiSanPham() != null &&
+                        (p.getLoaiSanPham().getTenLoai().toLowerCase().contains("chuột") ||
+                                p.getLoaiSanPham().getTenLoai().toLowerCase().contains("mouse")))
+                .limit(20).collect(Collectors.toList());
 
-        // Truyền dữ liệu ra view
-        model.addAttribute("spMoi", spMoi);
-        model.addAttribute("laptopGaming", laptopGaming);
-        model.addAttribute("laptopVP", laptopVP);
-        model.addAttribute("banPhim", banPhim);
-        model.addAttribute("chuot", chuot);
+        response.put("banPhim", banPhim);
+        response.put("laptop", laptop);
+        response.put("chuot", chuot);
 
-        return "home/index";
+        return response;
+    }
+
+    // API 2: Lấy chi tiết 1 sản phẩm theo ID (Vue sẽ gọi cái này khi bấm vào ảnh)
+    @GetMapping("/product/{id}")
+    public ResponseEntity<SanPham> getProductDetail(@PathVariable Integer id) {
+        // SỬA LẠI DÒNG NÀY: Thêm .orElse(null)
+        SanPham sp = sanPhamService.findById(id).orElse(null);
+
+        if (sp != null) {
+            return ResponseEntity.ok(sp);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

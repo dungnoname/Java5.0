@@ -67,7 +67,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Cho phép truy cập công khai Login và các file tĩnh
                         .requestMatchers("/api/auth/**").permitAll()
-
+                        .requestMatchers("/api/**").permitAll() // Cho phép tất cả truy cập link bắt đầu bằng /api/
+                        .requestMatchers("/images/**").permitAll()
                         // chỉ được xem
                         .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/products/categories").permitAll()
